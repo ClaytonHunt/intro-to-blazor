@@ -3,13 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
 using System.Linq;
-using Microsoft.EntityFrameworkCore;
 using QuestList.Data;
-using QuestList.Data.Repositories;
-using QuestList.Shared.Interfaces;
-using QuestList.Shared.Models;
 
 namespace QuestList.Server
 {
