@@ -39,9 +39,9 @@ namespace QuestList.Data.Repositories
             return await DbSet.FirstOrDefaultAsync(q => q.Id == id);
         }
 
-        public async Task<IList<QuestLine>> ReadAll(Func<QuestLine, bool> predicate)
+        public async Task<IList<QuestLine>> ReadAll(Expression<Func<QuestLine, bool>> predicate)
         {
-           return await DbSet.Where(predicate).AsQueryable().ToListAsync();
+           return await DbSet.Where(predicate).ToListAsync();
         }
 
         public async Task<int> Update(QuestLine item)

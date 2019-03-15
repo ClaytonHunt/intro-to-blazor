@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.AspNetCore;
+﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,15 +15,7 @@ namespace QuestList.Server
             // Initialize the database
             var scopeFactory = host.Services.GetRequiredService<IServiceScopeFactory>();
 
-            using (var scope = scopeFactory.CreateScope())
-            {
-                var db = scope.ServiceProvider.GetRequiredService<QuestLineContext>();
-
-                if (db.Database.EnsureCreated())
-                {
-                    SeedData.Initialize(db);
-                }
-            }
+            scopeFactory.EnsureQuestData();
 
             host.Run();
         }
