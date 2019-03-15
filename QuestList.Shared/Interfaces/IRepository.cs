@@ -13,6 +13,6 @@ namespace QuestList.Shared.Interfaces
         Task<IList<T>> ReadAll(Expression<Func<T, bool>> predicate);
         Task<int> Update(T item);
         Task Delete(T item);
-        IRepository<T> Include(Expression<Func<QuestLine, object>> path);
+        IRepository<T> Include(Expression<Func<T, object>> path);
     }
 }

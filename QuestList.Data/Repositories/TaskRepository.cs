@@ -1,0 +1,68 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using QuestList.Shared.Interfaces;
+using QuestList.Shared.Models;
+
+namespace QuestList.Data.Repositories
+{
+    public class TaskRepository : IRepository<QuestTask>
+    {
+        private readonly DbSet<QuestTask> _dbSet;
+        private readonly QuestLineContext _context;
+        private readonly IList<Expression<Func<QuestTask, object>>> _modifiers;
+
+        protected IQueryable<QuestTask> DbSet =>
+            _modifiers.Aggregate((IQueryable<QuestTask>)_dbSet, (current, include) =>
+                current.Include(include));
+
+        public TaskRepository(QuestLineContext context)
+        {
+            _context = context;
+            _dbSet = context.Set<QuestTask>();
+            _modifiers = new List<Expression<Func<QuestTask, object>>>();
+        }
+
+        public async Task<int> Create(QuestTask item)
+        {
+            _dbSet.Add(item);
+            await _context.SaveChangesAsync();
+
+            return item.Id;
+        }
+
+        public async Task<QuestTask> ReadById(int id)
+        {
+            return await DbSet.FirstOrDefaultAsync(q => q.Id == id);
+        }
+
+        public async Task<IList<QuestTask>> ReadAll(Expression<Func<QuestTask, bool>> predicate)
+        {
+            return await DbSet.Where(predicate).ToListAsync();
+        }
+
+        public async Task<int> Update(QuestTask item)
+        {
+            _dbSet.Attach(item).State = EntityState.Modified;
+
+            await _context.SaveChangesAsync();
+
+            return item.Id;
+        }
+
+        public Task Delete(QuestTask item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IRepository<QuestTask> Include(Expression<Func<QuestTask, object>> path)
+        {
+            _modifiers.Add(path);
+
+            return this;
+        }
+    }
+}
