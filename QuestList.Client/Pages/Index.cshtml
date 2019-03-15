@@ -3,16 +3,24 @@
 @using QuestList.Shared.Models
 @inject HttpClient HttpClient
 
-<h1>Quest Line</h1>
+<nav>
+    <ul>
+        <li>
+            <NavLink class="" href="" Match="NavLinkMatch.All">Quests</NavLink>
+        </li>
+    </ul>
+</nav>
 
-@foreach (var quest in Quests)
-{
-    <test>Hello</test>
-}
+<ul>
+    @foreach (var quest in Quests.Reverse())
+    {
+        <li>@quest.Name</li>
+    }
+</ul>
 
 @functions
 {
-    IList<QuestLine> Quests { get; set; }
+    IList<QuestLine> Quests { get; set; } = new List<QuestLine>();
 
     protected override async Task OnInitAsync()
     {
