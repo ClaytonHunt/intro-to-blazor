@@ -1,8 +1,21 @@
 ﻿@page "/"
+@using Microsoft.AspNetCore.Components
+@using QuestList.Shared.Models
+@inject HttpClient HttpClient
 
 <h1>Quest Line</h1>
 
+@foreach (var quest in Quests)
+{
+    <test>Hello</test>
+}
+
 @functions
 {
-    
+    IList<QuestLine> Quests { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        Quests = await HttpClient.GetJsonAsync<IList<QuestLine>>("/quests");
+    }
 }
