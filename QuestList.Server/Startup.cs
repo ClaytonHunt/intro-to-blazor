@@ -5,6 +5,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json.Serialization;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using QuestList.Data;
 
 namespace QuestList.Server
 {
@@ -15,6 +17,7 @@ namespace QuestList.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddNewtonsoftJson();
+            services.AddDbContext<QuestLineContext>(options => options.UseSqlite("Data Source=quests.db"));
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(

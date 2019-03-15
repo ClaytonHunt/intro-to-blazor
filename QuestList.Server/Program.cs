@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore;
+﻿using System;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using QuestList.Data;
 
 namespace QuestList.Server
 {
@@ -8,7 +11,22 @@ namespace QuestList.Server
     {
         public static void Main(string[] args)
         {
-            BuildWebHost(args).Run();
+            var host = BuildWebHost(args);
+
+            // Initialize the database
+            var scopeFactory = host.Services.GetRequiredService<IServiceScopeFactory>();
+
+            using (var scope = scopeFactory.CreateScope())
+            {
+                var db = scope.ServiceProvider.GetRequiredService<QuestLineContext>();
+
+                if (db.Database.EnsureCreated())
+                {
+                    SeedData.Initialize(db);
+                }
+            }
+
+            host.Run();
         }
 
         public static IWebHost BuildWebHost(string[] args) =>

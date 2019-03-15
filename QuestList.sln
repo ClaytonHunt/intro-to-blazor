@@ -3,11 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28711.60
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestList.Server", "QuestList.Server\QuestList.Server.csproj", "{DF22090F-3C1B-4CF1-8D73-A61D6267A8B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuestList.Server", "QuestList.Server\QuestList.Server.csproj", "{DF22090F-3C1B-4CF1-8D73-A61D6267A8B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestList.Client", "QuestList.Client\QuestList.Client.csproj", "{D22F2895-6CFD-4732-9193-EBD03CA32A8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuestList.Client", "QuestList.Client\QuestList.Client.csproj", "{D22F2895-6CFD-4732-9193-EBD03CA32A8E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestList.Shared", "QuestList.Shared\QuestList.Shared.csproj", "{4124EC6E-E0B4-40F6-AB84-9341593EBBBD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "QuestList.Shared", "QuestList.Shared\QuestList.Shared.csproj", "{4124EC6E-E0B4-40F6-AB84-9341593EBBBD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{9129FAFB-E567-4496-892E-85FFB4204B88}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestList.Data", "QuestList.Data\QuestList.Data.csproj", "{7170362D-F23D-4CD7-9681-192DD0C4BF35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +36,10 @@ Global
 		{4124EC6E-E0B4-40F6-AB84-9341593EBBBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4124EC6E-E0B4-40F6-AB84-9341593EBBBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4124EC6E-E0B4-40F6-AB84-9341593EBBBD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7170362D-F23D-4CD7-9681-192DD0C4BF35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7170362D-F23D-4CD7-9681-192DD0C4BF35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7170362D-F23D-4CD7-9681-192DD0C4BF35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7170362D-F23D-4CD7-9681-192DD0C4BF35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
