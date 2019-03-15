@@ -3,27 +3,44 @@
 @using QuestList.Shared.Models
 @inject HttpClient HttpClient
 
-<nav>
-    <ul>
-        <li>
-            <NavLink class="" href="" Match="NavLinkMatch.All">Quests</NavLink>
-        </li>
-    </ul>
-</nav>
-
 <ul>
     @foreach (var quest in Quests.Reverse())
     {
-        <li>@quest.Name</li>
+        <li>
+            <a onmouseover="@(async () => await SelectQuest(quest))">@quest.Name</a>
+        </li>
     }
 </ul>
+
+<div class="tasks">
+    @if (CurrentQuest != null)
+    {
+        <ul>
+            @foreach (var task in CurrentQuest.Tasks)
+            {
+                <li>@task.Name</li>
+            }
+        </ul>
+    }
+</div>
 
 @functions
 {
     IList<QuestLine> Quests { get; set; } = new List<QuestLine>();
+    QuestLine CurrentQuest;
 
     protected override async Task OnInitAsync()
     {
         Quests = await HttpClient.GetJsonAsync<IList<QuestLine>>("/quests");
+    }
+
+    async Task SelectQuest(QuestLine quest)
+    {
+        CurrentQuest = quest;
+
+        if (CurrentQuest.Tasks.Count == 0)
+        {
+            CurrentQuest.Tasks = await HttpClient.GetJsonAsync<IList<QuestTask>>($"/quests/{CurrentQuest.Id}/tasks");
+        }
     }
 }
