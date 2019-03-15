@@ -3,14 +3,16 @@
 @using QuestList.Shared.Models
 @inject HttpClient HttpClient
 
-<ul>
-    @foreach (var quest in Quests.Reverse())
-    {
-        <li>
-            <a onmouseover="@(async () => await SelectQuest(quest))">@quest.Name</a>
-        </li>
-    }
-</ul>
+<div class="quests">
+    <ul>
+        @foreach (var quest in Quests.Reverse())
+        {
+            <li>
+                <a class="@(IsCurrentQuest(quest) ? "active": "")" onmouseover="@(async () => await SelectQuest(quest))">@quest.Name</a>
+            </li>
+        }
+    </ul>
+</div>
 
 <div class="tasks">
     @if (CurrentQuest != null)
@@ -42,5 +44,10 @@
         {
             CurrentQuest.Tasks = await HttpClient.GetJsonAsync<IList<QuestTask>>($"/quests/{CurrentQuest.Id}/tasks");
         }
+    }
+
+    bool IsCurrentQuest(QuestLine quest)
+    {
+        return quest == CurrentQuest;
     }
 }
