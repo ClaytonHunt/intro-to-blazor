@@ -13,6 +13,7 @@ namespace QuestList.Data
             services.AddDbContext<QuestLineContext>(options => options.UseSqlite("Data Source=quests.db"));
 
             services.AddScoped<IRepository<QuestLine>, QuestRepository>();
+            services.AddScoped<IRepository<QuestTask>, TaskRepository>();
 
             return services;
         }
