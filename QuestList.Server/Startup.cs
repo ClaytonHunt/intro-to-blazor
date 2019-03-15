@@ -7,6 +7,9 @@ using Newtonsoft.Json.Serialization;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using QuestList.Data;
+using QuestList.Data.Repositories;
+using QuestList.Shared.Interfaces;
+using QuestList.Shared.Models;
 
 namespace QuestList.Server
 {
@@ -17,12 +20,13 @@ namespace QuestList.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().AddNewtonsoftJson();
-            services.AddDbContext<QuestLineContext>(options => options.UseSqlite("Data Source=quests.db"));
             services.AddResponseCompression(opts =>
             {
                 opts.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
                     new[] { "application/octet-stream" });
             });
+
+            services.AddQuestData();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
