@@ -1,6 +1,14 @@
-﻿body {
+﻿@font-face {
+    font-family: "Futura Medium Condensed";
+    src: url(futura_condensed_medium-webfont.woff2) format("woff2"), url(futura_condensed_medium-webfont.woff) format("woff");
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
     margin: 0;
     padding: 0;
+    font-family: "Futura Medium Condensed";
 }
 
 ul {
@@ -19,6 +27,7 @@ ul {
     width: 100vw;
     background: url(../img/mountains.jpg) no-repeat center center fixed;
     background-size: cover;
+    filter: blur(3px);
 }
 
 .foreground {
@@ -73,6 +82,7 @@ ul {
         }
 
         a, a:visited {
+            position: relative;
             font-size: 36px;
             color: rgba(255,255,255,0.7);
             text-decoration: none;
@@ -81,12 +91,38 @@ ul {
                 color: white;
                 text-decoration: none;
             }
+
+            &.active {
+                &:before {
+                    position: absolute;
+                    content: "";
+                    width: 28px;
+                    height: 29px;
+                    top: 8px;
+                    left: -50px;
+                    background-image: url("../img/task-pointer.png");
+                    background-size: cover;
+                }
+
+                &:after {
+                    position: absolute;
+                    content: "";
+                    width: 28px;
+                    height: 29px;
+                    top: 8px;
+                    right: -50px;
+                    background-image: url("../img/task-pointer.png");
+                    background-size: cover;
+                    transform: rotateY(180deg);
+                }
+            }
         }
     }
 
     main {
         display: grid;
-        grid-template-columns: 25% 75%;
+        grid-template-columns: 20% 80%;
+        min-width: 1264px;
         height: calc(100vh - 120px);
         overflow: auto;
         margin-top: 10px;
@@ -98,10 +134,12 @@ ul {
 
         .quests {
             display: flex;
+            min-width: 224px;
             justify-content: flex-end;
             border-right: 3px solid gray;
             padding: 10px;
             margin: 3px;
+            text-transform: uppercase;
 
             ul {
                 width: 100%;
@@ -113,9 +151,9 @@ ul {
 
             a {
                 position: relative;
+                display: inline-block;
                 color: gray;
-
-                padding-right: 20px;
+                margin-right: 25px;
 
                 &:hover, &.active {
                     color: white;
@@ -133,7 +171,8 @@ ul {
                         content: "";
                         width: 23px;
                         height: 23.5px;
-                        top: 25%;
+                        top: 10px;
+                        right: -25px;
                         background-image: url("../img/task-pointer.png");
                         background-size: cover;
                         filter: alpha(.5);
@@ -143,24 +182,96 @@ ul {
         }
 
         .tasks {
-            display: flex;
-            justify-content: flex-start;
+            min-width: 984px;
             border-left: 3px solid gray;
             padding: 10px;
             margin: 3px;
+            text-align: center;
+            overflow-x: hidden;
 
-            ul li {
+            h1 {
+                display: inline-block;
                 position: relative;
-                
+                margin-left: 160px;
+                margin-right: 160px;
+                font-size: 40px;
+                font-weight: normal;
+                text-transform: uppercase;
+                color: rgba(255,255,255,.8);
+
                 &:before {
                     position: absolute;
                     content: "";
-                    width: 16px;
-                    height: 25px;
-                    top: 24%;
-                    left: -25px;
-                    background-image: url("../img/task-bullet.png");
+                    top: -10px;
+                    left: -180px;
+                    width: 170px;
+                    height: 60px;
+                    background-image: url("../img/title-flourish.png");
                     background-size: cover;
+                }
+
+                &:after {
+                    position: absolute;
+                    content: "";
+                    top: -10px;
+                    right: -180px;
+                    width: 170px;
+                    height: 60px;
+                    background-image: url("../img/title-flourish.png");
+                    background-size: cover;
+                    transform: rotateY(180deg);
+                }
+            }
+
+            ul li {
+                position: relative;
+                text-align: left;
+
+                a {
+                    &:before {
+                        position: absolute;
+                        content: "";
+                        width: 16px;
+                        height: 25px;
+                        top: 24%;
+                        left: -25px;
+                        background-image: url("../img/task-bullet.png");
+                        background-size: cover;
+                    }
+
+                    &.complete:before {
+                        background-image: url("../img/task-bullet-completed.png");
+                    }
+                }
+            }
+
+            .objectives {
+                position: relative;
+                display: inline-block;
+                margin-top: 20px;
+                text-transform: uppercase;
+
+                &:before {
+                    position: absolute;
+                    content: "";
+                    width: 384px;
+                    height: 36px;
+                    top: 4px;
+                    left: -400px;
+                    background-image: url("../img/objective-flourish.png");
+                    background-size: cover;
+                }
+
+                &:after {
+                    position: absolute;
+                    content: "";
+                    width: 384px;
+                    height: 36px;
+                    top: 4px;
+                    right: -400px;
+                    background-image: url("../img/objective-flourish.png");
+                    background-size: cover;
+                    transform: rotateY(180deg);
                 }
             }
         }

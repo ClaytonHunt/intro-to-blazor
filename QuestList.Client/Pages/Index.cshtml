@@ -22,12 +22,23 @@
     @if (CurrentQuest != null)
     {
         <h1>@CurrentQuest.Name</h1>
-        <p>@CurrentQuest.Description</p>
-        <div class="objectives">Objectives</div>
+        
+        if (@CurrentQuest.Description != "")
+        {
+             <div>@CurrentQuest.Description</div>
+             <div class="objectives">Objectives</div>
+        }        
+        
         <ul>
             @foreach (var task in CurrentQuest.Tasks)
             {
-                <li>@task.Name</li>
+                <li>
+
+                    <a class="@(task.IsCompleted ? "complete" : "")"
+                       onclick="@(async () => await ToggleTask(task))">
+                        @task.Name
+                    </a>
+                </li>
             }
         </ul>
     }
@@ -64,6 +75,22 @@
         catch (Exception ex)
         {
             quest.IsBeingWorked = !quest.IsBeingWorked;
+        }
+    }
+
+    async Task ToggleTask(QuestTask task)
+    {
+        Console.WriteLine($"/quests/{CurrentQuest.Id}/tasks/{task.Id}");
+
+        task.IsCompleted = !task.IsCompleted;
+
+        try
+        {
+            await HttpClient.PutJsonAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}", task);
+        }
+        catch (Exception ex)
+        {
+            task.IsCompleted = !task.IsCompleted;
         }
     }
 
