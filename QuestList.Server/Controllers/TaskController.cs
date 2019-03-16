@@ -25,7 +25,7 @@ namespace QuestList.Server.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetTasks(int questId, int? taskId)
         {
-            var result = await _taskRepository.ReadAll(t => t.Quest.Id == questId && (taskId == null || taskId == t.Id));
+            var result = await GetQuestTasks(questId, taskId);
 
             if (taskId != null && result.Count == 0)
             {
@@ -33,6 +33,34 @@ namespace QuestList.Server.Controllers
             }
 
             return taskId == null ? Ok(result) : Ok(result.First());
+        }
+
+        [HttpPut("{taskId}")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateQuest(int questId, int taskId, QuestTask task)
+        {
+            if (!IsMatchingTask(taskId, task) || !await IsQuestTask(questId, taskId))
+            {
+                return BadRequest();
+            }
+
+            return Ok(await _taskRepository.Update(task));
+        }
+
+        private async Task<bool> IsQuestTask(int questId, int taskId)
+        {
+            return (await GetQuestTasks(questId, taskId)).Any();
+        }
+
+        private static bool IsMatchingTask(int taskId, QuestTask task)
+        {
+            return task.Id == taskId;
+        }
+
+        private async Task<IList<QuestTask>> GetQuestTasks(int questId, int? taskId)
+        {
+            return await _taskRepository.ReadAll(t => t.Quest.Id == questId && (taskId == null || taskId == t.Id));
         }
     }
 }
