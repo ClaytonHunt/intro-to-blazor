@@ -16,6 +16,19 @@
             </li>
         }
     </ul>
+    <hr/>
+    <ul class="completed-quests">
+        @foreach (var quest in Quests.Where(q => q.Tasks.All(t => t.IsCompleted)))
+        {
+            <li>
+                <a class="@(IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
+                   onmouseover="@(async () => await SelectQuest(quest))"
+                   onclick="@(async () => await ToggleQuest(quest))">
+                    @quest.Name
+                </a>
+            </li>
+        }
+    </ul>
 </div>
 
 <div class="tasks">
@@ -34,8 +47,9 @@
             {
                 <li>
 
-                    <a class="@(task.IsCompleted ? "complete" : "")"
-                       onclick="@(async () => await ToggleTask(task))">
+                    <a class="@(IsCurrentTask(task) ? "active" : "") @(task.IsCompleted ? "complete" : "")"
+                       onclick="@(async () => await ToggleTask(task))"
+                       onmouseover="@(() => SelectTask(task))">
                         @task.Name
                     </a>
                 </li>
@@ -48,6 +62,7 @@
 {
     IList<QuestLine> Quests { get; set; } = new List<QuestLine>();
     QuestLine CurrentQuest;
+    QuestTask CurrentTask;
 
     protected override async Task OnInitAsync()
     {
@@ -62,6 +77,11 @@
         {
             CurrentQuest.Tasks = await HttpClient.GetJsonAsync<IList<QuestTask>>($"/quests/{CurrentQuest.Id}/tasks");
         }
+    }
+
+    void SelectTask(QuestTask task)
+    {
+        CurrentTask = task;
     }
 
     async Task ToggleQuest(QuestLine quest)
@@ -97,5 +117,10 @@
     bool IsCurrentQuest(QuestLine quest)
     {
         return quest == CurrentQuest;
+    }
+
+    bool IsCurrentTask(QuestTask task)
+    {
+        return task == CurrentTask;
     }
 }

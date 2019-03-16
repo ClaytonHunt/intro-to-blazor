@@ -9,6 +9,7 @@ body {
     margin: 0;
     padding: 0;
     font-family: "Futura Medium Condensed";
+    color: rgba(255,255,255, .8);
 }
 
 ul {
@@ -133,19 +134,21 @@ ul {
         font-size: 36px;
 
         .quests {
-            display: flex;
             min-width: 224px;
-            justify-content: flex-end;
             border-right: 3px solid gray;
             padding: 10px;
             margin: 3px;
+            text-align: right;
             text-transform: uppercase;
+            padding-left: 20px;
+            padding-right: 20px;
 
             ul {
                 width: 100%;
 
                 li {
                     text-align: end;
+                    padding-right: 30px;
                 }
             }
 
@@ -188,6 +191,7 @@ ul {
             margin: 3px;
             text-align: center;
             overflow-x: hidden;
+            color: rgba(255,255,255,.7);
 
             h1 {
                 display: inline-block;
@@ -197,7 +201,6 @@ ul {
                 font-size: 40px;
                 font-weight: normal;
                 text-transform: uppercase;
-                color: rgba(255,255,255,.8);
 
                 &:before {
                     position: absolute;
@@ -228,6 +231,10 @@ ul {
                 text-align: left;
 
                 a {
+                    &:hover, &.active {
+                        color: white;
+                    }
+
                     &:before {
                         position: absolute;
                         content: "";
