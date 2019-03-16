@@ -7,23 +7,25 @@ namespace QuestList.Data
     {
         public static void Initialize(QuestLineContext db)
         {
-            var quests = new QuestLine[]
+            var quests = new[]
             {
                 new QuestLine
                 {
                     Id = 1,
                     Name = "Miscellaneous",
+                    Description = "",
                     IsPermanent = true
                 },
                 new QuestLine
                 {
                     Id = 2,
                     Name = "Create Todo List",
-                    IsPermanent = true
+                    Description = "Create a Skyrim based Todo List that will help to gamify getting things done.",
+                    IsPermanent = false
                 }
             };
 
-            var tasks = new QuestTask[]
+            var tasks = new[]
             {
                 new QuestTask
                 {

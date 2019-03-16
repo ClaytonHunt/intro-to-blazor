@@ -6,6 +6,7 @@ namespace QuestList.Shared.Models
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string Description { get; set; }
         public bool IsPermanent { get; set; }
         public bool IsBeingWorked { get; set; }
         public ICollection<QuestTask> Tasks { get; set; } = new List<QuestTask>();
