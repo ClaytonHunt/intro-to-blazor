@@ -22,7 +22,6 @@ namespace QuestList.Data
 
             modelBuilder.Entity<QuestTask>().HasOne(qt => qt.Quest);
             modelBuilder.Entity<QuestTask>().HasMany(qt => qt.Rewards);
-
         }
     }
 }
