@@ -36,12 +36,12 @@ namespace QuestList.Data.Repositories
 
         public async Task<QuestLine> ReadById(int id)
         {
-            return await DbSet.FirstOrDefaultAsync(q => q.Id == id);
+            return await DbSet.AsNoTracking().FirstOrDefaultAsync(q => q.Id == id);
         }
 
         public async Task<IList<QuestLine>> ReadAll(Expression<Func<QuestLine, bool>> predicate)
         {
-           return await DbSet.Where(predicate).ToListAsync();
+           return await DbSet.AsNoTracking().Where(predicate).ToListAsync();
         }
 
         public async Task<int> Update(QuestLine item)
