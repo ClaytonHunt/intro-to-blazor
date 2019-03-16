@@ -99,19 +99,45 @@ ul {
         .quests {
             display: flex;
             justify-content: flex-end;
-            border-right: 1px solid gray;
+            border-right: 3px solid gray;
             padding: 10px;
             margin: 3px;
 
-            ul li {
-                text-align: end;
+            ul {
+                width: 100%;
+
+                li {
+                    text-align: end;
+                }
             }
 
             a {
+                position: relative;
                 color: gray;
+
+                padding-right: 20px;
 
                 &:hover, &.active {
                     color: white;
+                }
+
+                &.working {
+                    &:hover, &.active {
+                        &:after {
+                            filter: alpha(1);
+                        }
+                    }
+
+                    &:after {
+                        position: absolute;
+                        content: "";
+                        width: 23px;
+                        height: 23.5px;
+                        top: 25%;
+                        background-image: url("../img/task-pointer.png");
+                        background-size: cover;
+                        filter: alpha(.5);
+                    }
                 }
             }
         }
@@ -119,9 +145,24 @@ ul {
         .tasks {
             display: flex;
             justify-content: flex-start;
-            border-left: 1px solid gray;
+            border-left: 3px solid gray;
             padding: 10px;
             margin: 3px;
+
+            ul li {
+                position: relative;
+                
+                &:before {
+                    position: absolute;
+                    content: "";
+                    width: 16px;
+                    height: 25px;
+                    top: 24%;
+                    left: -25px;
+                    background-image: url("../img/task-bullet.png");
+                    background-size: cover;
+                }
+            }
         }
     }
 }

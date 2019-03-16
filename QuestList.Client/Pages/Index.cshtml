@@ -8,7 +8,11 @@
         @foreach (var quest in Quests.Reverse())
         {
             <li>
-                <a class="@(IsCurrentQuest(quest) ? "active": "")" onmouseover="@(async () => await SelectQuest(quest))">@quest.Name</a>
+                <a class="@(IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
+                   onmouseover="@(async () => await SelectQuest(quest))"
+                   onclick="@(async () => await ToggleQuest(quest))">
+                    @quest.Name
+                </a>
             </li>
         }
     </ul>
@@ -17,6 +21,9 @@
 <div class="tasks">
     @if (CurrentQuest != null)
     {
+        <h1>@CurrentQuest.Name</h1>
+        <p>@CurrentQuest.Description</p>
+        <div class="objectives">Objectives</div>
         <ul>
             @foreach (var task in CurrentQuest.Tasks)
             {
@@ -43,6 +50,20 @@
         if (CurrentQuest.Tasks.Count == 0)
         {
             CurrentQuest.Tasks = await HttpClient.GetJsonAsync<IList<QuestTask>>($"/quests/{CurrentQuest.Id}/tasks");
+        }
+    }
+
+    async Task ToggleQuest(QuestLine quest)
+    {
+        quest.IsBeingWorked = !quest.IsBeingWorked;
+
+        try
+        {
+            await HttpClient.PutJsonAsync($"/quests/{quest.Id}", quest);
+        }
+        catch (Exception ex)
+        {
+            quest.IsBeingWorked = !quest.IsBeingWorked;
         }
     }
 
