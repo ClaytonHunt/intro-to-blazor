@@ -12,5 +12,95 @@
 </div>
 
 <div class="tasks">
-    <TaskListing Quest="@QuestState.CurrentQuest"></TaskListing>
+    @if (CurrentQuest != null)
+    {
+        <h1>@CurrentQuest.Name</h1>
+        
+        if (@CurrentQuest.Description != "")
+        {
+             <div>@CurrentQuest.Description</div>
+             <div class="objectives">Objectives</div>
+        }        
+        
+        <ul>
+            @foreach (var task in CurrentQuest.Tasks)
+            {
+                <li>
+
+                    <a class="@(IsCurrentTask(task) ? "active" : "") @(task.IsCompleted ? "complete" : "")"
+                       onclick="@(async () => await ToggleTask(task))"
+                       onmouseover="@(() => SelectTask(task))">
+                        @task.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    }
 </div>
+
+@functions
+{
+    IList<QuestLine> Quests { get; set; } = new List<QuestLine>();
+    QuestLine CurrentQuest;
+    QuestTask CurrentTask;
+
+    protected override async Task OnInitAsync()
+    {
+        Quests = await HttpClient.GetJsonAsync<IList<QuestLine>>("/quests");
+    }
+
+    async Task SelectQuest(QuestLine quest)
+    {
+        CurrentQuest = quest;
+
+        if (CurrentQuest.Tasks.Count == 0)
+        {
+            CurrentQuest.Tasks = await HttpClient.GetJsonAsync<IList<QuestTask>>($"/quests/{CurrentQuest.Id}/tasks");
+        }
+    }
+
+    void SelectTask(QuestTask task)
+    {
+        CurrentTask = task;
+    }
+
+    async Task ToggleQuest(QuestLine quest)
+    {
+        quest.IsBeingWorked = !quest.IsBeingWorked;
+
+        try
+        {
+            await HttpClient.PutJsonAsync($"/quests/{quest.Id}", quest);
+        }
+        catch (Exception ex)
+        {
+            quest.IsBeingWorked = !quest.IsBeingWorked;
+        }
+    }
+
+    async Task ToggleTask(QuestTask task)
+    {
+        Console.WriteLine($"/quests/{CurrentQuest.Id}/tasks/{task.Id}");
+
+        task.IsCompleted = !task.IsCompleted;
+
+        try
+        {
+            await HttpClient.PutJsonAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}", task);
+        }
+        catch (Exception ex)
+        {
+            task.IsCompleted = !task.IsCompleted;
+        }
+    }
+
+    bool IsCurrentQuest(QuestLine quest)
+    {
+        return quest == CurrentQuest;
+    }
+
+    bool IsCurrentTask(QuestTask task)
+    {
+        return task == CurrentTask;
+    }
+}
