@@ -1,17 +1,18 @@
-﻿@inject QuestState QuestState
+﻿@using Microsoft.AspNetCore.Components
+@inject QuestState QuestState
 
-@if (QuestState.CurrentQuest != null)
+@if (Quest != null)
 {
-    <h1>@QuestState.CurrentQuest.Name</h1>
+    <h1>@Quest.Name</h1>
 
-    if (QuestState.CurrentQuest.Description != "")
+    if (Quest.Description != "")
     {
-        <div>@QuestState.CurrentQuest.Description</div>
+        <div>@Quest.Description</div>
         <div class="objectives">Objectives</div>
     }
 
     <ul>
-        @foreach (var task in QuestState.CurrentQuest.Tasks)
+        @foreach (var task in Quest.Tasks)
         {
             <li>
 
@@ -23,4 +24,8 @@
             </li>
         }
     </ul>
+}
+
+@functions {
+    [Parameter] QuestLine Quest { get; set; }
 }
