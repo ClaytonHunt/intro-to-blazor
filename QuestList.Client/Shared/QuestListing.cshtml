@@ -1,0 +1,19 @@
+﻿@using Microsoft.AspNetCore.Components
+@inject QuestState QuestState
+
+<ul>
+    @foreach (var quest in Quests ?? new List<QuestLine>())
+    {
+        <li>
+            <a class="@(QuestState.IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
+               onmouseover="@(async () => await QuestState.SelectQuest(quest))"
+               onclick="@(async () => await QuestState.ToggleQuest(quest))">
+                @quest.Name
+            </a>
+        </li>
+    }
+</ul>
+
+@functions {    
+    [Parameter] IEnumerable<QuestLine> Quests { get; set; }    
+}
