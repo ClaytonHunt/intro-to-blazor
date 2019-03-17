@@ -4,31 +4,35 @@
 @inject HttpClient HttpClient
 
 <div class="quests">
-    <ul>
-        @foreach (var quest in Quests.Reverse())
-        {
-            <li>
-                <a class="@(IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
-                   onmouseover="@(async () => await SelectQuest(quest))"
-                   onclick="@(async () => await ToggleQuest(quest))">
-                    @quest.Name
-                </a>
-            </li>
-        }
-    </ul>
+    <div class="active-quests">
+        <ul>
+            @foreach (var quest in Quests.Where(q => !q.IsCompleted).Reverse())
+            {
+                <li>
+                    <a class="@(IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
+                       onmouseover="@(async () => await SelectQuest(quest))"
+                       onclick="@(async () => await ToggleQuest(quest))">
+                        @quest.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>    
     <hr/>
-    <ul class="completed-quests">
-        @foreach (var quest in Quests.Where(q => q.Tasks.All(t => t.IsCompleted)))
-        {
-            <li>
-                <a class="@(IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
-                   onmouseover="@(async () => await SelectQuest(quest))"
-                   onclick="@(async () => await ToggleQuest(quest))">
-                    @quest.Name
-                </a>
-            </li>
-        }
-    </ul>
+    <div class="completed-quests">
+        <ul>
+            @foreach (var quest in Quests.Where(q => q.IsCompleted))
+            {
+                <li>
+                    <a class="@(IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
+                       onmouseover="@(async () => await SelectQuest(quest))"
+                       onclick="@(async () => await ToggleQuest(quest))">
+                        @quest.Name
+                    </a>
+                </li>
+            }
+        </ul>
+    </div>    
 </div>
 
 <div class="tasks">
