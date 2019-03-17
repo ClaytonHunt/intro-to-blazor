@@ -143,15 +143,6 @@ ul {
             padding-left: 20px;
             padding-right: 20px;
 
-            ul {
-                width: 100%;
-
-                li {
-                    text-align: end;
-                    padding-right: 30px;
-                }
-            }
-
             a {
                 position: relative;
                 display: inline-block;
@@ -179,6 +170,29 @@ ul {
                         background-image: url("../img/task-pointer.png");
                         background-size: cover;
                         filter: alpha(.5);
+                    }
+                }
+            }
+
+            ul {
+                width: 100%;
+
+                li {
+                    text-align: end;
+                    padding-right: 30px;
+                }
+            }
+
+            .completed-quests {
+                a {
+                    color: rgba(255,255,255,.4);
+
+                    &:hover, &.active {
+                        color: rgba(255,255,255,.6);
+                    }
+
+                    &:after {
+                        display: none;
                     }
                 }
             }

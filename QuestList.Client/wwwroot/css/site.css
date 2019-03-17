@@ -114,11 +114,6 @@ ul {
       text-transform: uppercase;
       padding-left: 20px;
       padding-right: 20px; }
-      .foreground main .quests ul {
-        width: 100%; }
-        .foreground main .quests ul li {
-          text-align: end;
-          padding-right: 30px; }
       .foreground main .quests a {
         position: relative;
         display: inline-block;
@@ -138,6 +133,17 @@ ul {
           background-image: url("../img/task-pointer.png");
           background-size: cover;
           filter: opacity(0.5); }
+      .foreground main .quests ul {
+        width: 100%; }
+        .foreground main .quests ul li {
+          text-align: end;
+          padding-right: 30px; }
+      .foreground main .quests .completed-quests a {
+        color: rgba(255, 255, 255, 0.4); }
+        .foreground main .quests .completed-quests a:hover, .foreground main .quests .completed-quests a.active {
+          color: rgba(255, 255, 255, 0.6); }
+        .foreground main .quests .completed-quests a:after {
+          display: none; }
     .foreground main .tasks {
       min-width: 984px;
       border-left: 3px solid gray;
