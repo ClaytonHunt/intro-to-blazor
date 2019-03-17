@@ -118,6 +118,7 @@ namespace QuestList.Data
 
             quests.Single(q => q.Id == 1).Tasks = tasks.Where(t => new[] { 1 }.Any(x => x == t.Id)).ToList();
             quests.Single(q => q.Id == 2).Tasks = tasks.Where(t => new[] { 2, 3, 4 }.Any(x => x == t.Id)).ToList();
+            quests.Single(q => q.Id == 3).Tasks = tasks.Where(t => new[] { 5, 6, 7, 8, 9, 10 }.Any(x => x == t.Id)).ToList();
 
             db.Quests.AddRange(quests);
             db.Tasks.AddRange(tasks);
