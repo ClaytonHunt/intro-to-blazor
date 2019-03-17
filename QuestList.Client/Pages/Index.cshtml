@@ -111,11 +111,20 @@
         try
         {
             await HttpClient.PutJsonAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}", task);
+            await UpdateQuestStatus(CurrentQuest);
         }
         catch (Exception ex)
         {
             task.IsCompleted = !task.IsCompleted;
         }
+    }
+
+    public async Task UpdateQuestStatus(QuestLine quest)
+    {
+        quest.IsCompleted = !quest.IsPermanent && quest.Tasks.All(t => t.IsCompleted);
+        quest.IsBeingWorked = !quest.IsCompleted && quest.IsBeingWorked;
+
+        await HttpClient.PutJsonAsync($"/quests/{quest.Id}", quest);
     }
 
     bool IsCurrentQuest(QuestLine quest)
