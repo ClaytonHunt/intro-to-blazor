@@ -22,6 +22,13 @@ namespace QuestList.Data
                     Name = "Create Todo List",
                     Description = "Create a Skyrim based Todo List that will help to gamify getting things done.",
                     IsPermanent = false
+                },
+                new QuestLine
+                {
+                    Id = 3,
+                    Name = "Demo Blazor Features",
+                    Description = "Blazor is a single-page app framework for building interactive client-side Web apps with .NET. Blazor uses open web standards without plugins or code transpilation. Blazor works in all modern web browsers, including mobile browsers.",
+                    IsPermanent = false
                 }
             };
 
@@ -55,6 +62,54 @@ namespace QuestList.Data
                 {
                     Id = 4,
                     Name = "Add Task Actions",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 5,
+                    Name = "Discuss prerequisites",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 6,
+                    Name = "File->New Project",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 7,
+                    Name = "Http interaction using HttpClient",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 8,
+                    Name = "Razor Syntax",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 9,
+                    Name = "Binding to Events",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 10,
+                    Name = "Two-Way data binding",
                     CreatedBy = "Clayton Hunt",
                     IsCompleted = false,
                     RequiresVerification = false
