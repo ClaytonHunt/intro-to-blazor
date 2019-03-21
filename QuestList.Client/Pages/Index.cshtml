@@ -3,7 +3,7 @@
 @using QuestList.Shared.Models
 @inject HttpClient HttpClient
 
-<div class="quests">
+<div class="left-nav">
     <div class="active-quests">
         <ul>
             @foreach (var quest in Quests.Where(q => !q.IsCompleted).Reverse())
@@ -35,7 +35,7 @@
     </div>    
 </div>
 
-<div class="tasks">
+<div class="content">
     @if (CurrentQuest != null)
     {
         <h1>@CurrentQuest.Name</h1>
@@ -96,7 +96,7 @@
         {
             await HttpClient.PutJsonAsync($"/quests/{quest.Id}", quest);
         }
-        catch (Exception ex)
+        catch
         {
             quest.IsBeingWorked = !quest.IsBeingWorked;
         }

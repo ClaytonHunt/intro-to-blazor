@@ -1,0 +1,194 @@
+﻿@page "/admin"
+@using Microsoft.AspNetCore.Components
+@using QuestList.Shared.Models
+@inject HttpClient HttpClient
+
+<div class="left-nav">
+    <ul>
+        <li>
+            <a class="active working">Manage Quests</a>
+        </li>
+    </ul>
+</div>
+<div class="content">
+    <h1>Manage Quests</h1>
+    <div class="quest-list">
+        @foreach (var q in Quests)
+        {
+            <div class="quest-entry @(IsCurrentQuest(q) ? "active" : "")">
+                <span class="title">@q.Name</span>
+                <div class="actions">
+                    <button type="button" onclick="@(async () => await SelectQuest(q))">Edit</button>
+                </div>
+            </div>
+        }
+        <div class="actions">
+            <button type="button" onclick="@(async () => await SelectQuest(new QuestLine()))">New Quest</button>
+        </div>
+    </div>
+    @if (CurrentQuest != null)
+    {
+        <hr />
+        <div class="quest-edit">
+            <h2>Quest Details</h2>
+            <div class="input-group">
+                <label>Name</label>
+                <input type="text" bind-value-oninput="@CurrentQuest.Name" />
+            </div>
+            <div class="input-group">
+                <label>Description</label>
+                <textarea type="text" bind="@CurrentQuest.Description"></textarea>
+            </div>
+            <div class="actions">
+                <button type="button" onclick="@(() => SaveQuest(CurrentQuest))">Save</button>
+                <button type="button" onclick="@(() => SelectQuest(CurrentQuest))">Reset</button>
+            </div>
+        </div>
+        <div class="task-list">
+            @foreach (var t in CurrentQuest.Tasks)
+            {
+                <div class="task-entry">
+                    <span class="title">@t.Name</span>
+                    <div class="actions">
+                        <button type="button" onclick="@(() => SelectTask(t))">Edit</button>
+                        @* <button type="button" onclick="@(() => RemoveTask(t))">Delete</button> *@
+                    </div>
+                </div>
+            }
+            <div class="actions">
+                <button type="button" onclick="@(() => SelectTask(new QuestTask()))">New Task</button>
+            </div>
+        </div>
+        if (CurrentTask != null)
+        {
+            <hr />
+            <div class="task-edit">
+                <h2>Task Details</h2>
+                <div class="input-group">
+                    <label>Name</label>
+                    <input type="text" bind-value-oninput="@CurrentTask.Name" />
+                </div>
+                <div class="actions">
+                    <button type="button" onclick="@(() => SaveTask(CurrentTask))">Save</button>
+                    <button type="button" onclick="@(() => SelectTask(CurrentTask))">Reset</button>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@functions {
+    IList<QuestLine> Quests { get; set; } = new List<QuestLine>();
+    QuestLine CurrentQuest { get; set; }
+    QuestLine QuestClone { get; set; }
+    QuestTask CurrentTask { get; set; }
+    QuestTask TaskClone { get; set; }
+
+    protected override async Task OnInitAsync()
+    {
+        Quests = await HttpClient.GetJsonAsync<IList<QuestLine>>("/quests");
+    }
+
+    async Task SaveQuest(QuestLine quest)
+    {
+        var isNew = quest.Id == default;
+
+        if (isNew)
+        {
+            await CreateQuest(quest);
+        }
+        else
+        {
+            await UpdateQuest(quest);
+        }
+    }
+
+    async Task CreateQuest(QuestLine quest)
+    {
+        var id = await HttpClient.PostJsonAsync<int>("/quests", quest);
+
+        quest.Id = id;
+
+        Quests.Add(quest);
+    }
+
+    async Task UpdateQuest(QuestLine quest)
+    {
+        await HttpClient.PutJsonAsync($"/quests/{quest.Id}", quest);
+
+        QuestClone = null;
+    }
+
+    async Task SelectQuest(QuestLine quest)
+    {
+        ClearUnsavedQuestChanges();
+
+        CurrentQuest = quest;
+        QuestClone = quest.Clone();
+
+        if (CurrentQuest.Tasks.Count <= 0)
+        {
+            CurrentQuest.Tasks = await HttpClient.GetJsonAsync<IList<QuestTask>>($"/quests/{quest.Id}/tasks");
+        }
+    }
+
+    async Task SaveTask(QuestTask task)
+    {
+        var isNew = task.Id == default;
+
+        if (isNew)
+        {
+            await CreateTask(task);
+        }
+        else
+        {
+            await UpdateTask(task);
+        }
+    }
+
+    async Task CreateTask(QuestTask task)
+    {
+        var id = await HttpClient.PostJsonAsync<int>($"/quests/{CurrentQuest.Id}/tasks", task);
+
+        task.Id = id;
+
+        CurrentQuest.Tasks.Add(task);
+    }
+
+    async Task UpdateTask(QuestTask task)
+    {
+        await HttpClient.PutJsonAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}", task);
+
+        TaskClone = null;
+    }
+
+    void SelectTask(QuestTask task)
+    {
+        ClearUnsavedTaskChanges();
+
+        CurrentTask = task;
+        TaskClone = task.Clone();
+    }
+
+    void ClearUnsavedQuestChanges()
+    {
+        if (QuestClone != null)
+        {
+            CurrentQuest.Name = QuestClone.Name;
+            CurrentQuest.Description = QuestClone.Description;
+        }
+    }
+
+    void ClearUnsavedTaskChanges()
+    {
+        if (TaskClone != null)
+        {
+            CurrentTask.Name = TaskClone.Name;            
+        }
+    }
+
+    bool IsCurrentQuest(QuestLine quest)
+    {
+        return quest == CurrentQuest;
+    }
+}
