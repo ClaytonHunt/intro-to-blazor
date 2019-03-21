@@ -13,10 +13,29 @@ namespace QuestList.Server.Controllers
     public class TaskController : Controller
     {
         private readonly IRepository<QuestTask> _taskRepository;
+        private readonly IRepository<QuestLine> _questRepository;
 
-        public TaskController(IRepository<QuestTask> taskRepository)
+        public TaskController(IRepository<QuestTask> taskRepository, IRepository<QuestLine> questRepository)
         {
             _taskRepository = taskRepository;
+            _questRepository = questRepository;
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> CreateTask(int questId, QuestTask task)
+        {
+            var quest = await _questRepository.ReadById(questId);
+
+            if (quest == null)
+            {
+                return BadRequest();
+            }
+
+            quest.Tasks.Add(task);
+
+            return Ok(await _questRepository.Update(quest));
         }
 
         [HttpGet("{taskId?}")]
@@ -38,7 +57,7 @@ namespace QuestList.Server.Controllers
         [HttpPut("{taskId}")]
         [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateQuest(int questId, int taskId, QuestTask task)
+        public async Task<IActionResult> UpdateTask(int questId, int taskId, QuestTask task)
         {
             if (!IsMatchingTask(taskId, task) || !await IsQuestTask(questId, taskId))
             {
