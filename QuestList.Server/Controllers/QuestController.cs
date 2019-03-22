@@ -20,6 +20,13 @@ namespace QuestList.Server.Controllers
             _questRepository = questRepository;
         }
 
+        [HttpPost]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        public async Task<IActionResult> UpdateQuest(QuestLine quest)
+        {
+            return Ok(await _questRepository.Create(quest));
+        }
+
         [HttpGet("{id?}")]
         [ProducesResponseType(typeof(QuestLine), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(IList<QuestLine>), StatusCodes.Status200OK)]
