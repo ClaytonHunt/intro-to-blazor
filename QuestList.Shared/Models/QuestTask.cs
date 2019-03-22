@@ -12,5 +12,19 @@ namespace QuestList.Shared.Models
         public bool RequiresVerification { get; set; }
         public QuestLine Quest { get; set; }
         public ICollection<Reward> Rewards { get; set; }
+        public QuestTask Clone()
+        {
+            return new QuestTask
+            {
+                Id = Id,
+                Name = Name,
+                CreatedBy = CreatedBy,
+                IsCompleted = IsCompleted,
+                IsBeingWorked = IsBeingWorked,
+                RequiresVerification = RequiresVerification,
+                Quest = Quest,
+                Rewards = Rewards
+            };
+        }
     }
 }

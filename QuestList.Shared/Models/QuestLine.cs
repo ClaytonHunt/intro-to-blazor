@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace QuestList.Shared.Models
 {
@@ -12,5 +13,18 @@ namespace QuestList.Shared.Models
         public bool IsBeingWorked { get; set; }
         public ICollection<QuestTask> Tasks { get; set; } = new List<QuestTask>();
         public ICollection<Reward> Rewards { get; set; } = new List<Reward>();
+
+        public QuestLine Clone()
+        {
+            return new QuestLine
+            {
+                Id = Id,
+                Name = Name,
+                Description = Description,
+                IsCompleted = IsCompleted,
+                IsPermanent = IsPermanent,
+                IsBeingWorked = IsBeingWorked
+            };
+        }
     }
 }
