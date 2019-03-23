@@ -53,9 +53,11 @@ namespace QuestList.Data.Repositories
             return item.Id;
         }
 
-        public Task Delete(QuestLine item)
+        public async Task Delete(QuestLine item)
         {
-            throw new NotImplementedException();
+            _dbSet.Attach(item).State = EntityState.Deleted;
+
+            await _context.SaveChangesAsync();
         }
 
         public IRepository<QuestLine> Include(Expression<Func<QuestLine, object>> path)

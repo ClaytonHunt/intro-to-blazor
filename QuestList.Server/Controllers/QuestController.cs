@@ -55,5 +55,22 @@ namespace QuestList.Server.Controllers
 
             return Ok(await _questRepository.Update(quest));
         }
+
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> DeleteQuest(int id)
+        {
+            var quest = await _questRepository.ReadById(id);
+
+            if (quest == null)
+            {
+                return BadRequest();
+            }
+
+            await _questRepository.Delete(quest);
+
+            return Ok();
+        }
     }
 }
