@@ -57,6 +57,13 @@ namespace QuestList.Data.Repositories
         {
             _dbSet.Attach(item).State = EntityState.Deleted;
 
+            var tasks = _context.Tasks.Where((t) => t.Quest.Id == item.Id);
+
+            foreach (var t in tasks)
+            {
+                _context.Entry(t).State = EntityState.Deleted;
+            }
+
             await _context.SaveChangesAsync();
         }
 
