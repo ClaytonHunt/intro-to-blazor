@@ -2,7 +2,7 @@
 @inject QuestState QuestState
 @implements IDisposable
 
-<div class="quests">
+<div class="left-nav">
     <div class="active-quests">
         <QuestListing Quests="@QuestState.Quests.Where(q => !q.IsCompleted).Reverse()" />
     </div>
@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div class="tasks">
+<div class="content">
     <TaskListing Quest="@QuestState.CurrentQuest" />
 </div>
 

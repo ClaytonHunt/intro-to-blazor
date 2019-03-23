@@ -71,7 +71,7 @@ ul {
 
         ul {
             display: flex;
-            justify-content: center;
+            justify-content: space-around;
             text-transform: uppercase;
             list-style: none;
             padding: 0;
@@ -79,6 +79,8 @@ ul {
 
             li {
                 display: inline-block;
+                margin-left: 55px;
+                margin-right: 55px;
             }
         }
 
@@ -120,6 +122,59 @@ ul {
         }
     }
 
+    button {
+        margin-left: 15px;
+        margin-right: 15px;
+        padding: 7px;
+        background: transparent;
+        border: 3px solid gray;
+        border-radius: 10px;
+        font-size: 24px;
+        color: rgba(255,255,255,.4);
+        outline: 0;
+
+        &:hover {
+            color: white;
+            border-color: white;
+        }
+    }
+
+    label {
+        display: inline-block;
+        text-transform: uppercase;
+    }
+
+    input, textarea {
+        display: inline-block;
+        margin-left: 15px;
+        margin-right: 15px;
+        padding: 7px;
+        background: transparent;
+        border: 3px solid gray;
+        border-radius: 10px;
+        font-size: 24px;
+        color: rgba(255,255,255,.4);
+        outline: 0;
+
+        &:focus {
+            color: white;
+            border-color: white;
+        }
+    }
+
+    textarea {
+        height: 150px;
+    }
+
+    .input-group {
+        display: grid;
+        grid-template-areas: "label input";
+        grid-template-columns: 30% auto;
+        text-align: left;
+        padding: 15px;
+        padding-left: 55px;
+    }
+
     main {
         display: grid;
         grid-template-columns: 20% 80%;
@@ -133,7 +188,48 @@ ul {
         color: white;
         font-size: 36px;
 
-        .quests {
+        h1, h2 {
+            display: inline-block;
+            position: relative;
+            margin-left: 160px;
+            margin-right: 160px;
+            font-size: 40px;
+            font-weight: normal;
+            text-transform: uppercase;
+
+            &:before {
+                position: absolute;
+                content: "";
+                top: -10px;
+                left: -180px;
+                width: 170px;
+                height: 60px;
+                background-image: url("../img/title-flourish.png");
+                background-size: cover;
+            }
+
+            &:after {
+                position: absolute;
+                content: "";
+                top: -10px;
+                right: -180px;
+                width: 170px;
+                height: 60px;
+                background-image: url("../img/title-flourish.png");
+                background-size: cover;
+                transform: rotateY(180deg);
+            }
+        }
+
+        h2 {
+            &:before, &:after {
+                top: 3px;
+                height: 39px;
+                background-image: url("../img/title-flourish-2.png");
+            }
+        }
+
+        .left-nav {
             min-width: 224px;
             border-right: 3px solid gray;
             padding: 10px;
@@ -198,7 +294,7 @@ ul {
             }
         }
 
-        .tasks {
+        .content {
             min-width: 984px;
             border-left: 3px solid gray;
             padding: 10px;
@@ -206,39 +302,6 @@ ul {
             text-align: center;
             overflow-x: hidden;
             color: rgba(255,255,255,.7);
-
-            h1 {
-                display: inline-block;
-                position: relative;
-                margin-left: 160px;
-                margin-right: 160px;
-                font-size: 40px;
-                font-weight: normal;
-                text-transform: uppercase;
-
-                &:before {
-                    position: absolute;
-                    content: "";
-                    top: -10px;
-                    left: -180px;
-                    width: 170px;
-                    height: 60px;
-                    background-image: url("../img/title-flourish.png");
-                    background-size: cover;
-                }
-
-                &:after {
-                    position: absolute;
-                    content: "";
-                    top: -10px;
-                    right: -180px;
-                    width: 170px;
-                    height: 60px;
-                    background-image: url("../img/title-flourish.png");
-                    background-size: cover;
-                    transform: rotateY(180deg);
-                }
-            }
 
             ul li {
                 position: relative;
@@ -293,6 +356,53 @@ ul {
                     background-image: url("../img/objective-flourish.png");
                     background-size: cover;
                     transform: rotateY(180deg);
+                }
+            }
+
+            .quest-list, .task-list {
+                text-align: left;
+                padding-left: 30px;
+                color: rgba(255,255,255, .4);
+
+                .quest-entry, .task-entry {
+                    display: grid;
+                    position: relative;
+                    margin-left: 25px;
+                    grid-template-areas: "title actions";
+                    grid-template-columns: 30% auto;
+                    margin-top: 10px;
+
+                    &.active, &:hover {
+                        color: white;
+                    }
+
+                    &.active:before {
+                        position: absolute;
+                        content: "";
+                        width: 23px;
+                        height: 23.5px;
+                        top: 10px;
+                        left: -25px;
+                        background: url(../img/task-pointer.png);
+                        background-size: cover;
+                        transform: rotateY(180deg);
+                    }
+
+                    .title {
+                        grid-area: title;
+                        text-transform: uppercase;
+                        padding-right: 50px;
+                    }
+
+                    .actions {
+                        grid-area: actions;
+                    }
+                }
+            }
+
+            .quest-edit, .task-edit {
+                .actions {
+                    text-align: right;
                 }
             }
         }
