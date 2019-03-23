@@ -77,6 +77,8 @@ namespace QuestList.Client.State
             }
 
             Quests.Remove(quest);
+
+            StateHasChanged();
         }
 
         public async Task UpdateQuestStatus(QuestLine quest)
