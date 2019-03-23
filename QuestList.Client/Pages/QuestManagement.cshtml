@@ -110,12 +110,22 @@
 
         quest.Id = id;
 
+        QuestClone = quest;
+
         Quests.Add(quest);
     }
 
     async Task DeleteQuest(QuestLine quest)
     {
         await HttpClient.DeleteAsync($"/quests/{quest.Id}");
+
+        if(quest == CurrentQuest)
+        {
+            CurrentQuest = null;
+            QuestClone = null;
+        }
+
+        Quests.Remove(quest);
     }
 
     async Task UpdateQuest(QuestLine quest)
@@ -173,6 +183,14 @@
     async Task DeleteTask(QuestTask task)
     {
         await HttpClient.DeleteAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}");
+
+        if(task == CurrentTask)
+        {
+            CurrentTask = null;
+            TaskClone = null;
+        }
+
+        CurrentQuest.Tasks.Remove(task);
     }
 
     void SelectTask(QuestTask task)
