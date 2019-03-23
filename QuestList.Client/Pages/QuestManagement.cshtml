@@ -19,6 +19,7 @@
                 <span class="title">@q.Name</span>
                 <div class="actions">
                     <button type="button" onclick="@(async () => await SelectQuest(q))">Edit</button>
+                    <button type="button" onclick="@(async () => await DeleteQuest(q))">Delete</button>                    
                 </div>
             </div>
         }
@@ -51,7 +52,7 @@
                     <span class="title">@t.Name</span>
                     <div class="actions">
                         <button type="button" onclick="@(() => SelectTask(t))">Edit</button>
-                        @* <button type="button" onclick="@(() => RemoveTask(t))">Delete</button> *@
+                        <button type="button" onclick="@(() => DeleteTask(t))">Delete</button>
                     </div>
                 </div>
             }
@@ -112,6 +113,11 @@
         Quests.Add(quest);
     }
 
+    async Task DeleteQuest(QuestLine quest)
+    {
+        await HttpClient.DeleteAsync($"/quests/{quest.Id}");
+    }
+
     async Task UpdateQuest(QuestLine quest)
     {
         await HttpClient.PutJsonAsync($"/quests/{quest.Id}", quest);
@@ -164,6 +170,11 @@
         TaskClone = null;
     }
 
+    async Task DeleteTask(QuestTask task)
+    {
+        await HttpClient.DeleteAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}");
+    }
+
     void SelectTask(QuestTask task)
     {
         ClearUnsavedTaskChanges();
@@ -185,7 +196,7 @@
     {
         if (TaskClone != null)
         {
-            CurrentTask.Name = TaskClone.Name;            
+            CurrentTask.Name = TaskClone.Name;
         }
     }
 
