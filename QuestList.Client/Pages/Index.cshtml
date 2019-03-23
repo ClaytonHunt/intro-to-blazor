@@ -1,139 +1,77 @@
 ﻿@page "/"
-@using Microsoft.AspNetCore.Components
-@using QuestList.Shared.Models
-@inject HttpClient HttpClient
+@using QuestList.Client.State
+@inject QuestState QuestState
+@implements IDisposable
 
 <div class="left-nav">
     <div class="active-quests">
         <ul>
-            @foreach (var quest in Quests.Where(q => !q.IsCompleted).Reverse())
+            @foreach (var quest in QuestState.Quests.Where(q => !q.IsCompleted).Reverse())
             {
-                <li>
-                    <a class="@(IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
-                       onmouseover="@(async () => await SelectQuest(quest))"
-                       onclick="@(async () => await ToggleQuest(quest))">
-                        @quest.Name
-                    </a>
-                </li>
+            <li>
+                <a class="@(QuestState.IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
+                   onmouseover="@(async () => await QuestState.SelectQuest(quest))"
+                   onclick="@(async () => await QuestState.ToggleQuest(quest))">
+                    @quest.Name
+                </a>
+            </li>
             }
         </ul>
-    </div>    
-    <hr/>
+    </div>
+    <hr />
     <div class="completed-quests">
         <ul>
-            @foreach (var quest in Quests.Where(q => q.IsCompleted))
+            @foreach (var quest in QuestState.Quests.Where(q => q.IsCompleted))
             {
-                <li>
-                    <a class="@(IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
-                       onmouseover="@(async () => await SelectQuest(quest))"
-                       onclick="@(async () => await ToggleQuest(quest))">
-                        @quest.Name
-                    </a>
-                </li>
+            <li>
+                <a class="@(QuestState.IsCurrentQuest(quest) ? "active" : "") @(quest.IsBeingWorked ? "working" : "")"
+                   onmouseover="@(async () => await QuestState.SelectQuest(quest))"
+                   onclick="@(async () => await QuestState.ToggleQuest(quest))">
+                    @quest.Name
+                </a>
+            </li>
             }
         </ul>
-    </div>    
+    </div>
 </div>
 
 <div class="content">
-    @if (CurrentQuest != null)
+    @if (QuestState.CurrentQuest != null)
     {
-        <h1>@CurrentQuest.Name</h1>
-        
-        if (@CurrentQuest.Description != "")
-        {
-             <div>@CurrentQuest.Description</div>
-             <div class="objectives">Objectives</div>
-        }        
-        
-        <ul>
-            @foreach (var task in CurrentQuest.Tasks)
-            {
-                <li>
+    <h1>@QuestState.CurrentQuest.Name</h1>
 
-                    <a class="@(IsCurrentTask(task) ? "active" : "") @(task.IsCompleted ? "complete" : "")"
-                       onclick="@(async () => await ToggleTask(task))"
-                       onmouseover="@(() => SelectTask(task))">
-                        @task.Name
-                    </a>
-                </li>
+        if (@QuestState.CurrentQuest.Description != "")
+        {
+    <div>@QuestState.CurrentQuest.Description</div>
+    <div class="objectives">Objectives</div>
+        }
+
+    <ul>
+        @foreach (var task in QuestState.CurrentQuest.Tasks)
+            {
+        <li>
+
+            <a class="@(QuestState.IsCurrentTask(task) ? "active" : "") @(task.IsCompleted ? "complete" : "")"
+               onclick="@(async () => await QuestState.ToggleTask(task))"
+               onmouseover="@(() => QuestState.SelectTask(task))">
+                @task.Name
+            </a>
+        </li>
             }
-        </ul>
+    </ul>
     }
 </div>
 
-@functions
-{
-    IList<QuestLine> Quests { get; set; } = new List<QuestLine>();
-    QuestLine CurrentQuest;
-    QuestTask CurrentTask;
-
-    protected override async Task OnInitAsync()
+@functions {
+    protected override void OnInit()
     {
-        Quests = await HttpClient.GetJsonAsync<IList<QuestLine>>("/quests");
+        QuestState.OnStateChanged += OnStateChanged;
     }
 
-    async Task SelectQuest(QuestLine quest)
+    void IDisposable.Dispose()
     {
-        CurrentQuest = quest;
-
-        if (CurrentQuest.Tasks.Count == 0)
-        {
-            CurrentQuest.Tasks = await HttpClient.GetJsonAsync<IList<QuestTask>>($"/quests/{CurrentQuest.Id}/tasks");
-        }
+        QuestState.OnStateChanged -= OnStateChanged;
     }
 
-    void SelectTask(QuestTask task)
-    {
-        CurrentTask = task;
-    }
-
-    async Task ToggleQuest(QuestLine quest)
-    {
-        quest.IsBeingWorked = !quest.IsBeingWorked;
-
-        try
-        {
-            await HttpClient.PutJsonAsync($"/quests/{quest.Id}", quest);
-        }
-        catch
-        {
-            quest.IsBeingWorked = !quest.IsBeingWorked;
-        }
-    }
-
-    async Task ToggleTask(QuestTask task)
-    {
-        Console.WriteLine($"/quests/{CurrentQuest.Id}/tasks/{task.Id}");
-
-        task.IsCompleted = !task.IsCompleted;
-
-        try
-        {
-            await HttpClient.PutJsonAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}", task);
-            await UpdateQuestStatus(CurrentQuest);
-        }
-        catch (Exception ex)
-        {
-            task.IsCompleted = !task.IsCompleted;
-        }
-    }
-
-    public async Task UpdateQuestStatus(QuestLine quest)
-    {
-        quest.IsCompleted = !quest.IsPermanent && quest.Tasks.All(t => t.IsCompleted);
-        quest.IsBeingWorked = !quest.IsCompleted && quest.IsBeingWorked;
-
-        await HttpClient.PutJsonAsync($"/quests/{quest.Id}", quest);
-    }
-
-    bool IsCurrentQuest(QuestLine quest)
-    {
-        return quest == CurrentQuest;
-    }
-
-    bool IsCurrentTask(QuestTask task)
-    {
-        return task == CurrentTask;
-    }
+    void OnStateChanged(object sender, EventArgs e) => StateHasChanged();
 }
