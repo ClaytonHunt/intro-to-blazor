@@ -47,7 +47,7 @@
         <div class="task-list">
             @foreach (var t in CurrentQuest.Tasks)
             {
-                <div class="task-entry">
+                <div class="task-entry @(IsCurrentTask(t) ? "active" : "")">
                     <span class="title">@t.Name</span>
                     <div class="actions">
                         <button type="button" onclick="@(() => SelectTask(t))">Edit</button>
@@ -144,6 +144,8 @@
         {
             await UpdateTask(task);
         }
+
+        TaskClone = task.Clone();
     }
 
     async Task CreateTask(QuestTask task)
@@ -190,5 +192,10 @@
     bool IsCurrentQuest(QuestLine quest)
     {
         return quest == CurrentQuest;
+    }
+
+    bool IsCurrentTask(QuestTask task)
+    {
+        return task == CurrentTask;
     }
 }
