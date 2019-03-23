@@ -109,7 +109,39 @@ namespace QuestList.Data
                 new QuestTask
                 {
                     Id = 10,
+                    Name = "Routing",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 11,
                     Name = "Two-Way data binding",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 12,
+                    Name = "Application State",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 13,
+                    Name = "Razor Components",
+                    CreatedBy = "Clayton Hunt",
+                    IsCompleted = false,
+                    RequiresVerification = false
+                },
+                new QuestTask
+                {
+                    Id = 14,
+                    Name = "Add Component Library",
                     CreatedBy = "Clayton Hunt",
                     IsCompleted = false,
                     RequiresVerification = false
@@ -118,7 +150,7 @@ namespace QuestList.Data
 
             quests.Single(q => q.Id == 1).Tasks = tasks.Where(t => new[] { 1 }.Any(x => x == t.Id)).ToList();
             quests.Single(q => q.Id == 2).Tasks = tasks.Where(t => new[] { 2, 3, 4 }.Any(x => x == t.Id)).ToList();
-            quests.Single(q => q.Id == 3).Tasks = tasks.Where(t => new[] { 5, 6, 7, 8, 9, 10 }.Any(x => x == t.Id)).ToList();
+            quests.Single(q => q.Id == 3).Tasks = tasks.Where(t => new[] { 5, 6, 7, 8, 9, 10, 11, 12, 13, 14 }.Any(x => x == t.Id)).ToList();
 
             db.Quests.AddRange(quests);
             db.Tasks.AddRange(tasks);

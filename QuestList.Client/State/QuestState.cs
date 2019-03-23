@@ -107,8 +107,6 @@ namespace QuestList.Client.State
 
         public void SelectTask(QuestTask task)
         {
-            Console.WriteLine($"Current Task: {CurrentTask?.Name ?? "Nothing Selected"}, Selecting Quest: {task.Name}");
-
             ClearUnsavedTaskChanges();
 
             CurrentTask = task;
