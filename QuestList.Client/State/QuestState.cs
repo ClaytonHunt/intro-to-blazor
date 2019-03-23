@@ -11,6 +11,8 @@ namespace QuestList.Client.State
     public class QuestState
     {
         private readonly HttpClient _http;
+        private QuestLine _questClone;
+        private QuestTask _questTask;
 
         public event EventHandler OnStateChanged;
         public IList<QuestLine> Quests { get; set; } = new List<QuestLine>();
@@ -37,14 +39,44 @@ namespace QuestList.Client.State
 
         public async Task SelectQuest(QuestLine quest)
         {
-            CurrentQuest = quest;
+            ClearUnsavedQuestChanges();
 
-            if (CurrentQuest.Tasks.Count == 0)
+            CurrentQuest = quest;
+            _questClone = quest.Clone();
+
+            if (CurrentQuest.Tasks.Count <= 0)
             {
-                CurrentQuest.Tasks = await _http.GetJsonAsync<IList<QuestTask>>($"/quests/{CurrentQuest.Id}/tasks");
+                CurrentQuest.Tasks = await _http.GetJsonAsync<IList<QuestTask>>($"/quests/{quest.Id}/tasks");
             }
 
             StateHasChanged();
+        }
+
+        public async Task SaveQuest(QuestLine quest)
+        {
+            var isNew = quest.Id == default;
+
+            if (isNew)
+            {
+                await CreateQuest(quest);
+            }
+            else
+            {
+                await UpdateQuest(quest);
+            }
+        }
+
+        public async Task DeleteQuest(QuestLine quest)
+        {
+            await _http.DeleteAsync($"/quests/{quest.Id}");
+
+            if (quest == CurrentQuest)
+            {
+                CurrentQuest = null;
+                _questClone = null;
+            }
+
+            Quests.Remove(quest);
         }
 
         public async Task UpdateQuestStatus(QuestLine quest)
@@ -75,7 +107,14 @@ namespace QuestList.Client.State
 
         public void SelectTask(QuestTask task)
         {
+            Console.WriteLine($"Current Task: {CurrentTask?.Name ?? "Nothing Selected"}, Selecting Quest: {task.Name}");
+
+            ClearUnsavedTaskChanges();
+
             CurrentTask = task;
+            _questTask = task.Clone();
+
+            StateHasChanged();
         }
 
         public async Task ToggleTask(QuestTask task)
@@ -93,9 +132,89 @@ namespace QuestList.Client.State
             }
         }
 
+        public async Task SaveTask(QuestTask task)
+        {
+            var isNew = task.Id == default;
+
+            if (isNew)
+            {
+                await CreateTask(task);
+            }
+            else
+            {
+                await UpdateTask(task);
+            }
+
+            _questTask = task.Clone();
+        }
+
+        public async Task DeleteTask(QuestTask task)
+        {
+            await _http.DeleteAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}");
+
+            if (task == CurrentTask)
+            {
+                CurrentTask = null;
+                _questTask = null;
+            }
+
+            CurrentQuest.Tasks.Remove(task);
+        }
+
         public bool IsCurrentTask(QuestTask task)
         {
             return task == CurrentTask;
+        }
+
+        private async Task CreateQuest(QuestLine quest)
+        {
+            var id = await _http.PostJsonAsync<int>("/quests", quest);
+
+            quest.Id = id;
+
+            _questClone = quest;
+
+            Quests.Add(quest);
+        }
+
+        private async Task UpdateQuest(QuestLine quest)
+        {
+            await _http.PutJsonAsync($"/quests/{quest.Id}", quest);
+
+            _questClone = null;
+        }
+
+        private async Task CreateTask(QuestTask task)
+        {
+            var id = await _http.PostJsonAsync<int>($"/quests/{CurrentQuest.Id}/tasks", task);
+
+            task.Id = id;
+
+            CurrentQuest.Tasks.Add(task);
+        }
+
+        private async Task UpdateTask(QuestTask task)
+        {
+            await _http.PutJsonAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}", task);
+
+            _questTask = null;
+        }
+
+        private void ClearUnsavedQuestChanges()
+        {
+            if (_questClone != null)
+            {
+                CurrentQuest.Name = _questClone.Name;
+                CurrentQuest.Description = _questClone.Description;
+            }
+        }
+
+        private void ClearUnsavedTaskChanges()
+        {
+            if (_questTask != null)
+            {
+                CurrentTask.Name = _questTask.Name;
+            }
         }
 
         private void StateHasChanged()
