@@ -9,7 +9,7 @@
 </head>
 <body>
     <app>
-        <canvas id="loading" style="--aspect-ratio:16/9;"></canvas>
+        <canvas id="loading" width="1600" height="900"></canvas>
         <div class="loading-text">
             Blazor is a single-page app framework for building interactive client-side Web apps with .NET. Blazor uses open web standards without plugins or code transpilation. Blazor works in all modern web browsers, including mobile browsers.
         </div>
@@ -25,16 +25,19 @@
                 interval = 1000 / fps,
                 lastTime = (new Date()).getTime(),
                 currentTime = 0,
-                delta = 0;
+                delta = 0,
+                finished = false;
 
-            resizeMe();
+            onRemove(canvas, () => {
+                finished = true;
+            });
 
             var parts = [],
                 minSpawnTime = 300,
                 lastTime = new Date().getTime(),
-                maxLifeTime = 5000,
-                emitterX = -100,
-                emitterY = canvas.height - 100,
+                maxLifeTime = 15000,
+                emitterX = -150,
+                emitterY = canvas.height +50,
                 smokeImage = new Image(),
                 blazorImage = new Image();
 
@@ -43,18 +46,17 @@
             function spawn() {
                 if (new Date().getTime() > lastTime + minSpawnTime) {
                     lastTime = new Date().getTime();
-                    parts.push(new smoke(emitterX, emitterY));
+                    parts.push(new smoke((emitterX + (Math.random() * 500)), emitterY));
                 }
             }
 
             function render() {
-                requestAnimationFrame(render);
+                if (!finished) requestAnimationFrame(render);
 
                 currentTime = (new Date()).getTime();
                 delta = (currentTime - lastTime);
 
                 if (delta > interval) {
-                    console.log('rendering...');
 
                     var len = parts.length;
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -87,16 +89,16 @@
                 this.y = y;
 
                 this.size = 1;
-                this.startSize = 1 * 50;
-                this.endSize = 4 * 50;
+                this.startSize = 1 * 60;
+                this.endSize = 4 * 60;
 
                 this.angle = Math.random() * 359;
 
                 this.startLife = new Date().getTime();
                 this.lifeTime = 0;
 
-                this.velY = -5 * (Math.floor(Math.random() * 3) / 4);
-                this.velX = (Math.floor(Math.random() * (-6) + 3) / 4);
+                this.velY = -3.5 * (Math.floor(Math.random() * 3) / 4);
+                this.velX = (Math.floor(Math.random() * (-6) + 3) / 8);
             }
 
             smoke.prototype.update = function () {
@@ -107,7 +109,7 @@
 
                 this.size = this.startSize + ((this.endSize - this.startSize) * lifePerc * .1);
 
-                this.alpha = 1 - (lifePerc * .01);
+                this.alpha = .5 - (lifePerc * .01);
                 this.alpha = Math.max(this.alpha, 0);
 
                 this.x += this.velX;
@@ -119,12 +121,35 @@
                 render();
             }
 
-
             window.onresize = resizeMe;
             window.onload = resizeMe;
             function resizeMe() {
                 canvas.width = 1600;
                 canvas.height = 900;
+            }
+
+            function onRemove(element, onDetachCallback) {
+                var observer = new MutationObserver(function () {
+                    function isDetached(el) {
+                        if (el.parentNode === document) {
+                            return false;
+                        } else if (el.parentNode === null) {
+                            return true;
+                        } else {
+                            return isDetached(el.parentNode);
+                        }
+                    }
+
+                    if (isDetached(element)) {
+                        observer.disconnect();
+                        onDetachCallback();
+                    }
+                });
+
+                observer.observe(document, {
+                    childList: true,
+                    subtree: true
+                });
             }
         </script>
     </app>
