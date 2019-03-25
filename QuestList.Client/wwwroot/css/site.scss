@@ -10,7 +10,21 @@ body {
     padding: 0;
     font-family: "Futura Medium Condensed";
     color: rgba(255,255,255, .8);
-    background-color: rgb(60,60,60);
+    background-color: rgb(15,15,15);
+}
+
+#loading {
+    position: absolute;
+    width: calc(100vw - 4px);
+    height: calc(100vh - 4px);    
+}
+
+.loading-text {
+    position: absolute;
+    bottom: 5%;
+    right: 5%;
+    width: 30%;
+    font-size: 36px;
 }
 
 ul {
