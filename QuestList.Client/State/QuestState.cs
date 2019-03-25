@@ -12,7 +12,7 @@ namespace QuestList.Client.State
     {
         private readonly HttpClient _http;
         private QuestLine _questClone;
-        private QuestTask _questTask;
+        private QuestTask _taskClone;
 
         public event EventHandler OnStateChanged;
         public IList<QuestLine> Quests { get; set; } = new List<QuestLine>();
@@ -43,6 +43,8 @@ namespace QuestList.Client.State
 
             CurrentQuest = quest;
             _questClone = quest.Clone();
+            CurrentTask = null;
+            _taskClone = null;
 
             if (CurrentQuest.Tasks.Count <= 0)
             {
@@ -112,7 +114,7 @@ namespace QuestList.Client.State
             ClearUnsavedTaskChanges();
 
             CurrentTask = task;
-            _questTask = task.Clone();
+            _taskClone = task.Clone();
 
             StateHasChanged();
         }
@@ -145,7 +147,7 @@ namespace QuestList.Client.State
                 await UpdateTask(task);
             }
 
-            _questTask = task.Clone();
+            _taskClone = task.Clone();
         }
 
         public async Task DeleteTask(QuestTask task)
@@ -155,7 +157,7 @@ namespace QuestList.Client.State
             if (task == CurrentTask)
             {
                 CurrentTask = null;
-                _questTask = null;
+                _taskClone = null;
             }
 
             CurrentQuest.Tasks.Remove(task);
@@ -197,7 +199,7 @@ namespace QuestList.Client.State
         {
             await _http.PutJsonAsync($"/quests/{CurrentQuest.Id}/tasks/{task.Id}", task);
 
-            _questTask = null;
+            _taskClone = null;
         }
 
         private void ClearUnsavedQuestChanges()
@@ -211,9 +213,9 @@ namespace QuestList.Client.State
 
         private void ClearUnsavedTaskChanges()
         {
-            if (_questTask != null)
+            if (_taskClone != null)
             {
-                CurrentTask.Name = _questTask.Name;
+                CurrentTask.Name = _taskClone.Name;
             }
         }
 
