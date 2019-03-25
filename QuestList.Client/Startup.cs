@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using QuestList.Client.State;
+using QuestList.ComponentLibrary.State;
 
 namespace QuestList.Client
 {
