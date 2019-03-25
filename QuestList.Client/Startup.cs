@@ -13,7 +13,7 @@ namespace QuestList.Client
 
         public void Configure(IComponentsApplicationBuilder app)
         {
-            app.AddComponent<App>("app");
+            app.AddComponent<App>("app");            
         }
     }
 }
