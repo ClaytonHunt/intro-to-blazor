@@ -85,7 +85,7 @@ namespace QuestList.Data
                 new QuestTask
                 {
                     Id = 7,
-                    Name = "Http interaction using HttpClient",
+                    Name = "Razor Syntax",
                     CreatedBy = "Clayton Hunt",
                     IsCompleted = false,
                     RequiresVerification = false
@@ -93,11 +93,11 @@ namespace QuestList.Data
                 new QuestTask
                 {
                     Id = 8,
-                    Name = "Razor Syntax",
+                    Name = "Http interaction using HttpClient",
                     CreatedBy = "Clayton Hunt",
                     IsCompleted = false,
                     RequiresVerification = false
-                },
+                },                
                 new QuestTask
                 {
                     Id = 9,
