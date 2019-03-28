@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+	<html class="sl-root decks export offline loaded">
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<title>Blazor! All the buzzwords, none of the hassle!</title>
+
+		<meta name="description" content="Are you tired of framework fatigue? Has the constant flow of new JavaScript libraries got you down? Well then, have I got news for you! With Blazor, you can have all the bleeding edge technology without learning anything you don&#39;t already know! You get WebAssembly, Isomorphic Code, Single Page Application, the list goes on! Blazor is a new framework for writing Single Page Applications (SPAs) in C# using the .Net Framework. In this talk I will explain what Blazor is and how it works. I will then walk through an example of how to use Blazor to write a simple example app.">
+
+		<link rel="stylesheet" type="text/css" href="lib/offline-v2.css">
+
+
+
+	</head>
+	<body class="reveal-viewport theme-font-league theme-color-grey-blue">
+		<div class="reveal">
+			<div class="slides">
+				<section data-id="4eb9ebaa5ffa09dc7f424d47dfcb35b9"><div class="sl-block" data-block-type="image" data-block-id="ca36fdef0f549d3e7ae890a4f2024abb" style="min-width: 4px; min-height: 4px; width: 960px; height: 540px; left: 0px; top: 58px;"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="1280" data-natural-height="720" style="" data-lazy-loaded="" data-src="blazor/dd541b563637d96946f2a4c573029a75.png"></div></div></section><section class="stack" data-id="d4492a68e3fea110fe2c5a06b5a5dc5e"><section data-id="9124cab2a377425eb80b44b5fe2e1ebc"><div class="sl-block" data-block-type="text" style="width: 413px; left: 29px; top: 84px; height: auto;" data-block-id="8e13c0568909d8adab7e8dcaa4821202"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 11;">
+<h2>About Me</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 413px; left: 29px; top: 158px; height: auto;" data-block-id="88194b21b00bf31e1a613535c4c759ed"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec metus justo. Aliquam erat volutpat." style="z-index: 13; text-align: left;">
+<p>Passionate about Software Craftsmanship and writing clean, maintainable code.</p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 411px; height: 673px; left: 515px; top: 14px; min-width: 4px; min-height: 4px;" data-block-id="a0442b70665fb56b182a4186f0892a0e"><div class="sl-block-content" style="z-index: 12;"><img data-natural-width="463" data-natural-height="269" style="left: -383px; top: 0px; width: 1159px; height: 673px;" data-crop-x="0.330377" data-crop-y="0" data-crop-width="0.354767" data-crop-height="1" data-lazy-loaded="" data-src="blazor/f4ec00d9a1e14e4cbb332e161fb1b23f.jpg"></div></div></section><section data-id="1fe51f1c12dc92ff71c5ba30c2de9bad"><div class="sl-block" data-block-type="text" style="width: 413px; left: 29px; top: 84px; height: auto;" data-block-id="fdf7e76c88b0c3aac0e4c85c5c59a950"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>C# developer</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 413px; left: 34px; top: 158px; height: auto;" data-block-id="a16ac60ce727be8201e65306188a06d8"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec metus justo. Aliquam erat volutpat." style="z-index: 12; text-align: left;">
+<p>I used to be a C# developer like you, but then...</p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 471px; height: 471px; left: 480px; top: 115px; min-width: 4px; min-height: 4px;" data-block-id="f602df575d50719636640ee6bad95bcc"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="512" data-natural-height="512" style="" data-lazy-loaded="" data-src="blazor/9409b8e7a2d7a0a43294b05c818dd2a4.png"></div></div></section><section data-id="275d47218dae6929384c1f4a821169f5"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 42px; height: auto;" data-block-id="1efc87cd9e9a18484c805d6949c8903e"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 11;">
+<h2>I Switched to Front End Developer</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 832px; height: 490px; left: 64px; top: 140px; min-width: 4px; min-height: 4px;" data-block-id="c02e607bcde18373805d97836964300b"><div class="sl-block-content" style="z-index: 12;"><img data-natural-width="292" data-natural-height="172" style="" data-lazy-loaded="" data-src="blazor/7576148d467e33ac7cc87971549a0aa8.png"></div></div>
+<div class="sl-block" data-block-type="text" data-block-id="e537e46581f563dc0b51c0fc938f160d" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 181px; top: 630px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 13; text-align: center;">
+<p>I took a framework to the knee</p>
+</div></div></section><section data-id="82b7f607a49a1a9b4dd88df04f7307c3"><div class="sl-block" data-block-type="text" style="width: 413px; left: 29px; top: 84px; height: auto;" data-block-id="8cc96ea9f7b11aee46febd7d5f9b6ad6"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Book Author</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 413px; left: 29px; top: 158px; height: auto;" data-block-id="94b33a250cfb36f0237451e57a670977"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec metus justo. Aliquam erat volutpat." style="z-index: 12; text-align: left;">
+<p style="color:rgb(17, 17, 17); font-size:21px !important"><span style="color:#FFFFFF"><span class="a-size-extra-large" style="font-size:28px !important">Practical Test-Driven Development using C# 7: Unleash the power of TDD by implementing real world examples under .NET environment and JavaScript</span></span></p>
+
+<p style="color:rgb(17, 17, 17); font-size:21px !important"><a href="https://www.amazon.com/gp/product/1788398785/ref=dbs_a_def_rwt_bibl_vppi_i1" target="_blank">https://www.amazon.com/gp/product/1788398785/ref=dbs_a_def_rwt_bibl_vppi_i1</a></p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 405px; height: 500px; left: 503px; top: 100px; min-width: 4px; min-height: 4px;" data-block-id="f755e0f72402baaefd3137e2750ebbc3"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="405" data-natural-height="500" style="" data-lazy-loaded="" data-src="blazor/3c321c7bba7205380dc602a7dc15ab6a.jpg"></div></div></section><section data-id="45051199a132836f12ddb9070c8e6107"><div class="sl-block" data-block-type="text" style="width: 413px; left: 29px; top: 84px; height: auto;" data-block-id="67086afc467d1584c7f1fd2cd8523723"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="text-align: left; z-index: 10;">
+<h2>Podcast Host</h2>
+</div></div>
+<div class="sl-block" data-block-type="text" style="width: 413px; left: 29px; top: 158px; height: auto;" data-block-id="ca089944f6decc302eeeb7d93be9d406"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi nec metus justo. Aliquam erat volutpat." style="z-index: 12; text-align: left;">
+<p style="color: rgb(51, 51, 51);"><span style="color:#FFFFFF">The 6 Figure Developer Podcast</span></p>
+
+<p style="color: rgb(51, 51, 51);"><span style="color:#FFFFFF">We talk about new and exciting technologies,<br>
+professional development,<br>
+clean code,<br>
+career advancement,<br>
+and more...</span></p>
+
+<p style="color:rgb(51, 51, 51)"> </p>
+
+<p style="color:rgb(51, 51, 51)"><a href="https://6figuredev.com/" target="_blank">https://6figuredev.com</a></p>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 374px; height: 378px; left: 506px; top: 158px; min-width: 4px; min-height: 4px;" data-block-id="e04948bfba79a0c44484cf2f01cccf8d"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="500" data-natural-height="500" style="left: -158px; top: -156px; width: 700px; height: 700px;" data-crop-x="0.225714" data-crop-y="0.222857" data-crop-width="0.534286" data-crop-height="0.54" data-lazy-loaded="" data-src="blazor/d26b07fa16a4405f2338a7ee95a2e9d1.png"></div></div></section><section data-id="05e35d98ddbb94bd90a42f84be3e8c5f"><div class="sl-block" data-block-type="text" data-block-id="165d484ac763673e9ac5883e1ccfe7f5" style="height: auto; min-width: 30px; min-height: 30px; width: 600px; left: 180px; top: 51px;"><div class="sl-block-content" data-placeholder-tag="p" data-placeholder-text="Text" style="z-index: 11;">
+<h1>I have several hobbies</h1>
+</div></div>
+<div class="sl-block" data-block-type="image" data-block-id="05c9e52c843b29db2808059b86e5f8da" style="min-width: 4px; min-height: 4px; width: 455px; height: 295px; left: 64px; top: 150px;"><div class="sl-block-content" style="z-index: 12;"><img style="left: -266px; top: -10px; width: 806px; height: 369px;" data-natural-width="2500" data-natural-height="1146" data-crop-x="0.330025" data-crop-y="0.0271" data-crop-width="0.564516" data-crop-height="0.799458" data-lazy-loaded="" data-src="blazor/29e0437bad8edfb37eb0c7d2b7d66537.jpg"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="b7c2b3a50c4b0a3fbe4ef22630a5e0f9" style="min-width: 4px; min-height: 4px; width: 361px; height: 295px; left: 519px; top: 150px;"><div class="sl-block-content" style="z-index: 13;"><img data-natural-width="2398" data-natural-height="1350" style="left: -408px; top: -135px; width: 1021px; height: 575px;" data-crop-x="0.399504" data-crop-y="0.235683" data-crop-width="0.353598" data-crop-height="0.513216" data-lazy-loaded="" data-src="blazor/be1f22fc9bc6eabd4df3d60cf4daa515.jpg"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="3b1db91489f23d7938d003abfa50282e" style="min-width: 4px; min-height: 4px; width: 256px; height: 144px; left: 64px; top: 445px;"><div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="2400" data-natural-height="1350" data-lazy-loaded="" data-src="blazor/8c3bb5091044c8b93403cdc5b7644e90.jpg"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="5dfe127a1293ec55a69f5b61feaa7b32" style="min-width: 4px; min-height: 4px; width: 314px; height: 144px; left: 320px; top: 445px;"><div class="sl-block-content" style="z-index: 15;"><img style="" data-natural-width="2500" data-natural-height="1146" data-lazy-loaded="" data-src="blazor/ed1f6eae607fee582f7a5de3b1566f16.jpg"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="3f475114d1384d106c6ac2382b6bbf16" style="min-width: 4px; min-height: 4px; width: 246px; height: 144px; left: 634px; top: 445px;"><div class="sl-block-content" style="z-index: 16;"><img style="left: -65px; top: 0px; width: 315px; height: 144px;" data-natural-width="2500" data-natural-height="1146" data-crop-x="0.207196" data-crop-y="0" data-crop-width="0.781709" data-crop-height="1" data-lazy-loaded="" data-src="blazor/2e91541865dddfe90fdb14d088dab36e.jpg"></div></div></section><section data-id="f68ba658a74095d7f4b115b4799c6e17"><div class="sl-block" data-block-type="image" style="width: 157px; height: 280px; left: 615px; top: 70px; min-width: 4px; min-height: 4px;" data-block-id="dfa9207fbb456e657da28b08b0d110dd"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="759" data-natural-height="1350" data-lazy-loaded="" data-src="blazor/871e4d3ca20f70ea67484768e7b6b355.jpg"></div></div>
+<div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 574px; height: auto;" data-block-id="49863a4fd2d5e2538f9b8e890b24c2da"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 12;">
+<h2>Etc.</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" data-block-id="e9bec5ca7332dcbcdbb3a97c49b8fc28" style="min-width: 4px; min-height: 4px; width: 498px; height: 280px; left: 117px; top: 70px;"><div class="sl-block-content" style="z-index: 13;"><img style="" data-natural-width="2400" data-natural-height="1350" data-lazy-loaded="" data-src="blazor/b390ee32f29143e1c997c1fbf8c92eb5.jpg"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="75b5d4820b710b9d3a38af3507c1698a" style="min-width: 4px; min-height: 4px; width: 299px; height: 224px; left: 117px; top: 350px;"><div class="sl-block-content" style="z-index: 14;"><img style="" data-natural-width="1800" data-natural-height="1350" data-lazy-loaded="" data-src="blazor/d255e00f5beb32f248cc6f80c04fafe7.JPG"></div></div>
+<div class="sl-block" data-block-type="image" data-block-id="e642d6b5f430f1db50e2ad110f4a3661" style="min-width: 4px; min-height: 4px; width: 360px; height: 226px; left: 412px; top: 350px;"><div class="sl-block-content" style="z-index: 15;"><img data-natural-width="2400" data-natural-height="1350" style="left: -42px; top: 0px; width: 402px; height: 226px;" data-crop-x="0.104478" data-crop-y="0" data-crop-width="0.895522" data-crop-height="1" data-lazy-loaded="" data-src="blazor/5b618dd12dbcc9720f3d8d893d04663d.jpg"></div></div></section></section><section class="stack" data-id="c32ecd8a1850393067de3a0e272b4847"><section data-id="252cd11b4860c6a13a03f808b32c3a8f"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 266px; height: auto;" data-block-id="3915df44d02222b1a6020b6edf41e12c"><div class="sl-block-content" data-placeholder-tag="h1" data-placeholder-text="Title Text" style="z-index: 10;">
+<h1>Now Let's Talk about Blazor</h1>
+</div></div></section><section data-id="fcf9f112d1dcee0489582de19479be52"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 42px; height: auto;" data-block-id="905a48d284957ee031cb3c800b554e8d"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
+<h2>What is Blazor?</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 711px; height: 476px; left: 125px; top: 154px; min-width: 4px; min-height: 4px;" data-block-id="b12934ddd710973d7143bd52c1734c0e"><div class="sl-block-content" style="z-index: 11;"></div></div></section><section data-id="1084c89ef5e9776be73f28113d301d8b"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 42px; height: auto;" data-block-id="081adb35a51b0f69e1fe0b1b4b66b6af"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
+<h2>Why would you Switch to Blazor?</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 711px; height: 476px; left: 125px; top: 154px; min-width: 4px; min-height: 4px;" data-block-id="86c2a42c5cc019e76e53cad289999266"><div class="sl-block-content" style="z-index: 11;"></div></div></section><section data-id="d4d382c259522fc747de2e2cd08a9716"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 42px; height: auto;" data-block-id="3b17516c409bbb8095aecab88b67d7ac"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
+<h2>Why wouldn't you switch?</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 711px; height: 476px; left: 125px; top: 154px; min-width: 4px; min-height: 4px;" data-block-id="709fa2efe09d0def8beeb6deae7e07d6"><div class="sl-block-content" style="z-index: 11;"></div></div></section></section><section class="stack" data-id="9b762cd63d1d7f831ee3ed6c435bdc1c"><section data-id="fbc162199378a676145ae826e7cbeec5"><div class="sl-block" data-block-type="text" style="width: 864px; left: 30px; top: 58px; height: auto;" data-block-id="a1482ad90c304c15823ee28f8ddce42f"><div class="sl-block-content" data-placeholder-tag="h1" style="font-size: 200%; text-align: left; z-index: 10;" data-placeholder-text="Text">
+<h1>Getting<br>
+Started<br>
+With Blazor</h1>
+</div></div></section><section data-id="0c08382d486f53332c481c941fc98bd6"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 42px; height: auto;" data-block-id="28286aaddc7dc2ac972b3bb6ef133c13"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
+<h2>Blazor.net</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 711px; height: 506px; left: 125px; top: 139px; min-width: 4px; min-height: 4px;" data-block-id="e9982065ed57d25bc4b0142fbcd86708"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="1870" data-natural-height="1332" style="" data-src="blazor/0bc215af5635dd541966c9ce7cd84a6c.png"></div></div></section><section data-id="c523b27a9223a51a7087e9e8b543e1f6"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 42px; height: auto;" data-block-id="2d02dd01504e9f10f086df95799b6b36"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
+<h2>Visual Studio 2019</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 711px; height: 499px; left: 125px; top: 143px; min-width: 4px; min-height: 4px;" data-block-id="75640a9a5f3f6ea5a96181ee782ad34f"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="1879" data-natural-height="1320" style="" data-src="blazor/8dcdd7ea8d6bdbab5ad2db573af5c18c.png"></div></div></section><section data-id="689885508a615375bb0d23d2e7a296d8"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 42px; height: auto;" data-block-id="0e2027685169fbbafa9df3c5f3d474da"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 10;">
+<h2>Blazor Extension</h2>
+</div></div>
+<div class="sl-block" data-block-type="image" style="width: 711px; height: 476px; left: 125px; top: 154px; min-width: 4px; min-height: 4px;" data-block-id="3fe29a49d1d69ad9569faa4ea8a082e2"><div class="sl-block-content" style="z-index: 11;"><img style="" data-natural-width="1889" data-natural-height="1265" data-src="blazor/7fc0ffebdee067c0190e398b5114d6cd.png"></div></div></section><section data-id="2136ddc4d45974db9cb4966e472e8e52"><div class="sl-block" data-block-type="text" style="width: 807px; left: 77px; top: 42px; height: auto;" data-block-id="b3fae40f49ec27524c89a32873122d47"><div class="sl-block-content" data-placeholder-tag="h2" data-placeholder-text="Title Text" style="z-index: 11;">
+<h2>Blazor CLI tools</h2>
+</div></div>
+<div class="sl-block" data-block-type="code" data-block-id="b1f5de4c63e9eb72c850990fdadb8f94" style="min-width: 30px; min-height: 30px; width: 704px; height: 360px; left: 129px; top: 200px;"><div class="sl-block-content notranslate" style="z-index: 12; font-size: 150%;" data-code-wrap="true"><pre><code>dotnet new -i Microsoft.AspNetCore.Blazor.Templates::0.9.0-preview3-19154-02</code></pre></div></div></section><section data-id="2a406ad8248982e29da3945dc5d95370"><div class="sl-block" data-block-type="image" data-block-id="a55fc011d875deb56810c5d2177bc7fb" style="min-width: 4px; min-height: 4px; width: 790px; height: 450px; left: 85px; top: 125px;"><div class="sl-block-content" style="z-index: 11;"><img data-natural-width="790" data-natural-height="450" style="" data-src="blazor/2d5a06fb817e302e99319dac3d7823ab.png"></div></div></section></section>
+			</div>
+		</div>
+
+		<script>
+			var SLConfig = {"deck": {"id":1465044,"slug":"blazor","title":"Blazor! All the buzzwords, none of the hassle!","description":"Are you tired of framework fatigue? Has the constant flow of new JavaScript libraries got you down? Well then, have I got news for you! With Blazor, you can have all the bleeding edge technology without learning anything you don't already know! You get WebAssembly, Isomorphic Code, Single Page Application, the list goes on! Blazor is a new framework for writing Single Page Applications (SPAs) in C# using the .Net Framework. In this talk I will explain what Blazor is and how it works. I will then walk through an example of how to use Blazor to write a simple example app.","width":960,"height":700,"visibility":"all","published_at":"2019-03-27T14:57:33.420Z","sanitize_messages":null,"thumbnail_url":"https://s3.amazonaws.com/media-p.slid.es/thumbnails/d1fc5caccb41f4d03eaae9a26af5f9ac/thumb.jpg?1553766945","view_count":0,"user":{"id":1028431,"username":"claytonhunt","name":"Clayton Hunt","description":null,"thumbnail_url":"https://lh4.googleusercontent.com/-1SFG3ygPNcQ/AAAAAAAAAAI/AAAAAAAAAdA/-ggQk948Oaw/photo.jpg","paid":true,"pro":false,"lite":true,"team_id":null,"settings":{"id":2934452,"present_controls":true,"present_upsizing":true,"present_pointer":false,"present_notes":true,"default_deck_tag_id":null}},"background_transition":"concave","transition":"default","theme_id":null,"theme_font":"league","theme_color":"grey-blue","auto_slide_interval":0,"comments_enabled":true,"forking_enabled":true,"rolling_links":false,"center":false,"shuffle":false,"should_loop":false,"share_notes":false,"slide_number":false,"slide_count":21,"rtl":false,"version":2,"collaborative":null,"deck_user_editor_limit":1,"data_updated_at":1553766945271,"font_typekit":null,"font_google":null,"time_limit":null,"upsizing_enabled":true,"notes":{"fcf9f112d1dcee0489582de19479be52":"Blazor is a new framework for browser applications being actively developed by Microsoft.\nBased on web assembly\n * it allows you to program in the language you love (C#) \n * using familiar tools and technqiues (Visual Studio, MVC, WebForms, Razor) \n * deploy to the most widely used client on the planet. (The Browser)\nBlazor is the brain child of Steve Sanderson, the Creator of KnockoutJS.\nI can see many of the concepts from KnockoutJS in Blazor and I really like that.\n\nWhile it is still experimental, many of us are hoping that it will move to an alpha or a beta sometime this year. With that move it would gain full Microsoft support and would soon be a production ready framework for development.","1084c89ef5e9776be73f28113d301d8b":"Blazor is a 1st generation framework in the new WebAssembly space.\nEven though it is experimental Blazor already fulfills almost all the needs of a modern web application.\nNot switching now may leave you to play catch up in the next couple of years as development shops begin to adopt Blazor in favor of other libraries and frameworks such as Angular and React.\nBlazor is already deployable to more devices than the existing frameworks, making it an obvious choice moving forward.","d4d382c259522fc747de2e2cd08a9716":"As mentioned, Blazor is experimental and until that flag is lifted there is no official support for it.\nBlazor is a 1st generation library. In most cases the 1st generation is great, it breaks barriers and proves what is possible.\nUnfortunately the 1st generation library is also short lived. I don't expect this to be the case with Blazor because it is a Microsoft product or at least I'm hopeful that it will be,\nbut there is always the chance.\nMany development shops are still using 5 year old versions of libraries because the business they work for will not allow them to upgrade to \"untested\" solutions. It simply may not be possible to use Blazor where you work.","252cd11b4860c6a13a03f808b32c3a8f":"","9124cab2a377425eb80b44b5fe2e1ebc":"","1fe51f1c12dc92ff71c5ba30c2de9bad":"","275d47218dae6929384c1f4a821169f5":"","82b7f607a49a1a9b4dd88df04f7307c3":"","45051199a132836f12ddb9070c8e6107":"","05e35d98ddbb94bd90a42f84be3e8c5f":"","f68ba658a74095d7f4b115b4799c6e17":"","4eb9ebaa5ffa09dc7f424d47dfcb35b9":"","fbc162199378a676145ae826e7cbeec5":"","0c08382d486f53332c481c941fc98bd6":"","c523b27a9223a51a7087e9e8b543e1f6":"Releasing in just a couple days, Join us for a launch party at St. Pete .Net Meetup","689885508a615375bb0d23d2e7a296d8":"","2136ddc4d45974db9cb4966e472e8e52":"","2a406ad8248982e29da3945dc5d95370":"File -\u003e New Project\n- Client Only\n- Hosted\nTurning on prerelease frameworks\nApplication Walkthrough"}}};
+
+
+			// Use local fonts
+			SLConfig.fonts_url = 'lib/fonts/';
+		</script>
+
+		<script src="lib/reveal.min.js"></script>
+		<script src="lib/offline.js"></script>
+
+		<!-- Initialize the presentation -->
+		<script>
+			Reveal.initialize({
+				width: 960,
+				height: 700,
+				margin: 0.05,
+				
+
+				hash: true,
+				controls: true,
+				progress: true,
+				mouseWheel: false,
+				showNotes: false,
+				slideNumber: false,
+
+				autoSlide: 0,
+				autoSlideStoppable: true,
+
+				center: false,
+				shuffle: false,
+				loop: false,
+				rtl: false,
+
+				transition: "default",
+				backgroundTransition: "concave",
+
+				dependencies: [
+					{ src: 'lib/reveal-plugins/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'lib/reveal-plugins/highlight/highlight.js', async: true, callback: function() { hljs.initHighlighting(); hljs.initHighlightingOnLoad(); } },
+					{ src: 'lib/reveal-plugins/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'lib/reveal-plugins/zoom/zoom.js', async: true }
+				]
+			});
+		</script>
+
+		
+
+	</body>
+</html>
