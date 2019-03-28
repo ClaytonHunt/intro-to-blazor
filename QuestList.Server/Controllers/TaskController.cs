@@ -35,7 +35,9 @@ namespace QuestList.Server.Controllers
 
             quest.Tasks.Add(task);
 
-            return Ok(await _questRepository.Update(quest));
+            await _questRepository.Update(quest);
+
+            return Ok(quest.Tasks.Max(t => t.Id));
         }
 
         [HttpGet("{taskId?}")]
